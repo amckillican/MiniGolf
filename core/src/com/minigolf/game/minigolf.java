@@ -25,7 +25,6 @@ public class minigolf extends ApplicationAdapter {
 		switch (gamestate) {
 			case "title":
 				titlescreen.titleScreen();
-
 		}
 	}
 
