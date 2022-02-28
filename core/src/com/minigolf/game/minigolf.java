@@ -1,36 +1,69 @@
 package com.minigolf.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.minigolf.endless;
+import com.minigolf.help;
+import com.minigolf.ninehole;
 import com.minigolf.titlescreen;
 
 public class minigolf extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+	public static String gamestate;
+	
+	public static OrthographicCamera camera;
+	public static ShapeRenderer shapeRenderer;
+	public static SpriteBatch batch;
+	
+    public static Texture titleBG;
 
-	public String gamestate = "title";
-
+	// initiate before game starts
 	@Override
 	public void create() {
+		// set the camera to the window resolution
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+
+		// initiating the camera
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, w, h);
+		camera.update();
+
+		// initializing shape renderer
+		shapeRenderer = new ShapeRenderer();
+		shapeRenderer.setAutoShapeType(true);
+
+		// initializing images
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		titleBG = new Texture("gfx/bg.png");
+
+		// starting game state
+		gamestate = "title";
 	}
 
+	// rendering the game
 	@Override
 	public void render() {
+		// clear the previous frame
 		ScreenUtils.clear(0, 0, 0, 1);
 
+		// chosing the game mode
 		switch (gamestate) {
-			case "title":
-				titlescreen.titleScreen();
+			case "title" -> titlescreen.titleScreen();
+			case "9-hole" -> ninehole.nineHole();
+			case "endless" -> endless.endlessScreen();
+			case "help" -> help.helpScreen();
 		}
 	}
 
+	// closing resources for memeory management
 	@Override
 	public void dispose() {
 		batch.dispose();
-		img.dispose();
+		titleBG.dispose();
 	}
 }
