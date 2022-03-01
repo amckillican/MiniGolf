@@ -14,14 +14,14 @@ import com.minigolf.ninehole;
 import com.minigolf.titlescreen;
 
 public class minigolf extends ApplicationAdapter {
-	public static String gamestate;
-	
+	// global initialization of variables
 	public OrthographicCamera camera;
 	public static ShapeRenderer shapeRenderer;
 	public static SpriteBatch batch;
 	public static BitmapFont font;
 	
     public static Texture titleBG;
+	public static String gamestate;
 
 	// initiate before game starts
 	@Override
