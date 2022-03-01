@@ -69,7 +69,7 @@ public class minigolf extends ApplicationAdapter {
 		}
 	}
 
-	// closing resources for memeory management
+	// closing resources for memory management
 	@Override
 	public void dispose() {
 		batch.dispose();
