@@ -114,6 +114,8 @@ public class titlescreen {
         minigolf.font.draw(minigolf.batch, "HELP", 385, 133);
         minigolf.font.draw(minigolf.batch, "ENDLESS", 810, 327);
         minigolf.font.draw(minigolf.batch, "EXIT", 865, 133);
+        minigolf.font.getData().setScale(1);
+        minigolf.font.draw(minigolf.batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
         minigolf.batch.end();
 
         // exiting the application
