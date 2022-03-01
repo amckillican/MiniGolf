@@ -1,9 +1,11 @@
 package com.minigolf;
 
+import com.badlogic.gdx.Gdx;
+
 public class help {
 
-    public static Object helpScreen() {
-        return null;
+    public static void helpScreen() {
+        Gdx.app.exit();
     }
 
 }

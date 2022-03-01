@@ -8,6 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new minigolf(), config);
+		
 		// starting window resolution
 		config.width = 1360;
 		config.height = 765;

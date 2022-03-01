@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -15,15 +16,19 @@ import com.minigolf.titlescreen;
 public class minigolf extends ApplicationAdapter {
 	public static String gamestate;
 	
-	public static OrthographicCamera camera;
+	public OrthographicCamera camera;
 	public static ShapeRenderer shapeRenderer;
 	public static SpriteBatch batch;
+	public static BitmapFont font;
 	
     public static Texture titleBG;
 
 	// initiate before game starts
 	@Override
 	public void create() {
+		// setting window title
+		Gdx.graphics.setTitle("MiniGolf");
+
 		// set the camera to the window resolution
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -36,6 +41,9 @@ public class minigolf extends ApplicationAdapter {
 		// initializing shape renderer
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
+
+		// initializing font
+		font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
 
 		// initializing images
 		batch = new SpriteBatch();
@@ -54,9 +62,10 @@ public class minigolf extends ApplicationAdapter {
 		// chosing the game mode
 		switch (gamestate) {
 			case "title" -> titlescreen.titleScreen();
-			case "9-hole" -> ninehole.nineHole();
+			case "ninehole" -> ninehole.nineHole();
 			case "endless" -> endless.endlessScreen();
 			case "help" -> help.helpScreen();
+			default -> Gdx.app.exit();
 		}
 	}
 
