@@ -9,8 +9,10 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new minigolf(), config);
 		
-		// starting window resolution
+		// config settings
 		config.width = 1360;
 		config.height = 765;
+		config.resizable = false;
+		config.title = "MiniGolf";
 	}
 }

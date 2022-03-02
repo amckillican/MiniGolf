@@ -1,26 +1,38 @@
 package com.minigolf;
 
-public class ball {
+public class Ball {
     private int x;
     private int y;
     private float xVelocity;
     private float yVelocity;
     private float scale;
+    private int size;
 
-    private ball() {
+    Ball() {
         this.x = 0;
         this.y = 0;
         this.xVelocity = 0;
         this.yVelocity = 0;
         this.scale = 1;
+        this.size = 16;
     }
 
-    private ball(int x, int y, float xVeolcity, float yVelocity, float scale) {
+    Ball(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.xVelocity = 0;
+        this.yVelocity = 0;
+        this.scale = 1;
+        this.size = 16;
+    }
+
+    Ball(int x, int y, float xVeolcity, float yVelocity, float scale) {
         this.x = x;
         this.y = y;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
         this.scale = scale;
+        this.size = 16;
     }
 
     public int getX() {
@@ -61,5 +73,9 @@ public class ball {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public int getSize() {
+        return this.size;
     }
 }
