@@ -47,7 +47,7 @@ public class minigolf extends ApplicationAdapter {
 
 		// initializing images
 		batch = new SpriteBatch();
-		titleBG = new Texture("gfx/bg.png");
+		titleBG = new Texture("gfx/Tiled/bg.png");
 
 		// starting game state
 		gamestate = "title";
