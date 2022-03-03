@@ -1,11 +1,21 @@
 package com.minigolf;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
-public class endless {
+public class endless extends Game {
+    @Override
+    public void create() {
 
-    public static void endlessScreen() {
+    }
+
+    @Override
+    public void render() {
         Gdx.app.exit();
     }
 
+    @Override
+    public void dispose() {
+
+    }
 }

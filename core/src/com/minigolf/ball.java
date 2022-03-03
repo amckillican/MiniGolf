@@ -8,30 +8,12 @@ public class Ball {
     private float scale;
     private int size;
 
-    Ball() {
-        this.x = 0;
-        this.y = 0;
-        this.xVelocity = 0;
-        this.yVelocity = 0;
-        this.scale = 1;
-        this.size = 16;
-    }
-
-    Ball(int x, int y) {
+    public Ball(int x, int y) {
         this.x = x;
         this.y = y;
         this.xVelocity = 0;
         this.yVelocity = 0;
         this.scale = 1;
-        this.size = 16;
-    }
-
-    Ball(int x, int y, float xVeolcity, float yVelocity, float scale) {
-        this.x = x;
-        this.y = y;
-        this.xVelocity = xVelocity;
-        this.yVelocity = yVelocity;
-        this.scale = scale;
         this.size = 16;
     }
 

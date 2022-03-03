@@ -1,6 +1,6 @@
 package com.minigolf.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
@@ -10,16 +10,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.minigolf.endless;
-import com.minigolf.help;
-import com.minigolf.ninehole;
 
-public class minigolf extends ApplicationAdapter {
+public class minigolf extends Game {
 	// global initialization of variables
 	public static OrthographicCamera camera;
 	public static ShapeRenderer shapeRenderer;
@@ -27,13 +20,6 @@ public class minigolf extends ApplicationAdapter {
 	public static BitmapFont font;
 	
     public static Texture titleBG;
-    public static Texture ballImg;
-    public static Texture powerMeter;
-    public static Texture powerMeterOverlay;
-    public static Texture powerMeterBar;
-	public static String gamestate;
-	public static TiledMap tiledMap;
-	public static TiledMapRenderer tiledMapRenderer;
 
 	// scrolling background position variables
 	public static int bgPosX1 = 1360;
@@ -61,14 +47,6 @@ public class minigolf extends ApplicationAdapter {
 		// initializing images
 		batch = new SpriteBatch();
 		titleBG = new Texture("gfx/Tiled/bg.png");
-		ballImg = new Texture("gfx/ball.png");
-		powerMeter = new Texture("gfx/powermeter_bg.png");
-		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
-		powerMeterBar = new Texture("gfx/powermeter_fg.png");
-
-		// initializing tiledMap
-		tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 	}
 
 	// rendering the game
@@ -120,7 +98,7 @@ public class minigolf extends ApplicationAdapter {
 
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    gamestate = "ninehole";
+                    // gamestate = "ninehole";
                 }
             }
         }
@@ -135,7 +113,7 @@ public class minigolf extends ApplicationAdapter {
 
                 // if user click button
                 if (Gdx.input.isTouched()) {
-                    gamestate = "help";
+                    // gamestate = "help";
                 }
             }
         }
@@ -150,7 +128,7 @@ public class minigolf extends ApplicationAdapter {
 
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    gamestate = "endless";
+                    // gamestate = "endless";
                 }
             }
         }
@@ -193,8 +171,5 @@ public class minigolf extends ApplicationAdapter {
 	public void dispose() {
 		batch.dispose();
 		titleBG.dispose();
-		powerMeter.dispose();
-		powerMeterOverlay.dispose();
-		powerMeterBar.dispose();
 	}
 }

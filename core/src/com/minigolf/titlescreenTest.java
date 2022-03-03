@@ -49,7 +49,7 @@ public class titlescreenTest {
 
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    minigolf.gamestate = "ninehole";
+                    // minigolf.gamestate = "ninehole";
                 }
             }
         }
@@ -64,7 +64,7 @@ public class titlescreenTest {
 
                 // if user click button
                 if (Gdx.input.isTouched()) {
-                    minigolf.gamestate = "help";
+                    // minigolf.gamestate = "help";
                 }
             }
         }
@@ -79,7 +79,7 @@ public class titlescreenTest {
 
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    minigolf.gamestate = "endless";
+                    // minigolf.gamestate = "endless";
                 }
             }
         }
@@ -94,7 +94,7 @@ public class titlescreenTest {
 
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    minigolf.gamestate = "exit";
+                    // minigolf.gamestate = "exit";
                 }
             }
         }
