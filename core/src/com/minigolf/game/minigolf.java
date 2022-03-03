@@ -10,52 +10,74 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.minigolf.screens.help;
 
 public class minigolf extends Game {
-	// global initialization of variables
-	public static OrthographicCamera camera;
-	public static ShapeRenderer shapeRenderer;
-	public static SpriteBatch batch;
-	public static BitmapFont font;
-	
-    public static Texture titleBG;
+    // global initialization of variables
+    public OrthographicCamera camera;
+    public ShapeRenderer shapeRenderer;
+    public SpriteBatch batch;
+    public BitmapFont font;
 
-	// scrolling background position variables
-	public static int bgPosX1 = 1360;
-	public static int bgPosX2 = 0;
-	
-	// initiate before game starts
-	@Override
-	public void create() {
-		// set the camera to the window resolution
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+    public Texture titleBG;
+    public Texture ballImg;
+    public Texture powerMeter;
+    public Texture powerMeterOverlay;
+    public Texture powerMeterBar;
+    public TiledMap tiledMap;
+    public TiledMapRenderer tiledMapRenderer;
 
-		// initiating the camera
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, w, h);
-		camera.update();
+    public String gamestate = "title";
 
-		// initializing shape renderer
-		shapeRenderer = new ShapeRenderer();
-		shapeRenderer.setAutoShapeType(true);
+    // scrolling background position variables
+    public int bgPosX1 = 1360;
+    public int bgPosX2 = 0;
 
-		// initializing font
-		font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+    // initiate before game starts
+    @Override
+    public void create() {
+        // set the camera to the window resolution
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
 
-		// initializing images
-		batch = new SpriteBatch();
-		titleBG = new Texture("gfx/Tiled/bg.png");
-	}
+        // initiating the camera
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, w, h);
+        camera.update();
 
-	// rendering the game
-	@Override
-	public void render() {
-		// clear the previous frame
-		ScreenUtils.clear(0, 0, 0, 1);
+        // initializing shape renderer
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
 
-		// drawing the background in the correct position
+        // initializing font
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+
+        // initializing images
+        batch = new SpriteBatch();
+        titleBG = new Texture("gfx/Tiled/bg.png");
+        ballImg = new Texture("gfx/ball.png");
+        powerMeter = new Texture("gfx/powermeter_bg.png");
+        powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
+        powerMeterBar = new Texture("gfx/powermeter_fg.png");
+
+        // initializing tiledMap
+        tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+    }
+
+    // rendering the game
+    @Override
+    public void render() {
+        // clear the previous frame
+        ScreenUtils.clear(0, 0, 0, 1);
+
+        // drawing the background in the correct position
         batch.begin();
         batch.draw(titleBG, bgPosX1, 0);
         batch.draw(titleBG, bgPosX2, 0);
@@ -79,7 +101,7 @@ public class minigolf extends Game {
         // drawing rectangle
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, (float) 0.75);
-    	shapeRenderer.rect(300, 252, 281, 100);
+        shapeRenderer.rect(300, 252, 281, 100);
         shapeRenderer.rect(300, 62, 281, 100);
         shapeRenderer.rect(772, 252, 281, 100);
         shapeRenderer.rect(772, 62, 281, 100);
@@ -113,7 +135,8 @@ public class minigolf extends Game {
 
                 // if user click button
                 if (Gdx.input.isTouched()) {
-                    // gamestate = "help";
+                    gamestate = "help";
+                    this.setScreen(new help(this));
                 }
             }
         }
@@ -159,17 +182,22 @@ public class minigolf extends Game {
         font.setColor(Color.BLACK);
         font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
         batch.end();
-		
-		// exiting the application
+
+        // exiting the application
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         }
-	}
 
-	// closing resources for memory management
-	@Override
-	public void dispose() {
-		batch.dispose();
-		titleBG.dispose();
-	}
+        // display the game screen
+        if (gamestate != "title") {
+            super.render();
+        }
+    }
+
+    // closing resources for memory management
+    @Override
+    public void dispose() {
+        batch.dispose();
+        titleBG.dispose();
+    }
 }

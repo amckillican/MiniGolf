@@ -1,4 +1,4 @@
-package com.minigolf;
+package com.minigolf.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
