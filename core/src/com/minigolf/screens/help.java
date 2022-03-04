@@ -2,21 +2,13 @@ package com.minigolf.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.math.Vector2;
-import com.minigolf.Ball;
 import com.minigolf.game.minigolf;
 
-public class help implements Screen, InputProcessor {
-    public Ball ball = new Ball(205, 375);
-    public boolean win = false;
-    public boolean shooting = false;
-    public boolean moving = (ball.getXVelocity() != 0 && ball.getYVelocity() != 0);
-    public Vector2 touchPos = new Vector2();
-    public Vector2 dragPos = new Vector2();
-    
+public class help implements Screen {    
     public minigolf game;
+    public float xVelocity = 0;
+    public float yVelocity = 0;
 
     public help (minigolf game){
         this.game = game;
@@ -31,45 +23,18 @@ public class help implements Screen, InputProcessor {
         game.tiledMapRenderer.render();
 
         game.batch.begin();
-        game.batch.draw(game.ballImg, ball.getX(), ball.getY());
+        game.batch.draw(game.ballImg, minigolf.ball.getX(), minigolf.ball.getY());
         game.batch.end();
-    }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        // if (!shooting && !moving) {
-        //     if (screenX >= ball.getX() && screenX <= (ball.getX() + ball.getSize())) {
-        //         if (screenY >= ball.getY() && screenY <= (ball.getY() + ball.getSize())) {
-        //             shooting = true;
-        //         }
-        //     }
-        // }
-        // if (!shooting && !moving) {
-        //     if (screenX >= 0 && screenX <= 50) {
-        //         if (screenY >= 0 && screenY <= 100) {
-        //             shooting = true;
-        //         }
-        //     }
-        // }
+        minigolf.ball.updatePos(xVelocity, yVelocity);
+        minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        System.out.println(screenX + " " + screenY);
-
-        if (shooting) {
-            game.batch.begin();
-            game.batch.draw(game.powerMeterBG, ball.getX() - 40, ball.getY() - 25);
-            game.batch.end();
+        if(minigolf.currentFrame - minigolf.startFrame >= .5){
+            if(!Gdx.input.justTouched() && minigolf.shooting) {
+                xVelocity = Gdx.input.getX() - minigolf.ball.getX();
+                yVelocity = Gdx.graphics.getHeight() - Gdx.input.getY() - minigolf.ball.getY();
+            }
         }
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-    
-    @Override
-    public void dispose() {
-
     }
 
     @Override
@@ -98,33 +63,7 @@ public class help implements Screen, InputProcessor {
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
+    public void dispose() {
+        
     }
 }

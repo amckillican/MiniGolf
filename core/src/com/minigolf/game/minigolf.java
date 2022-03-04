@@ -2,6 +2,7 @@ package com.minigolf.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
@@ -15,9 +16,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.minigolf.Ball;
 import com.minigolf.screens.help;
 
-public class minigolf extends Game {
+public class minigolf extends Game implements InputProcessor {
 	// global initialization of variables
 	public OrthographicCamera camera;
     public TiledMapRenderer tiledMapRenderer;
@@ -31,11 +33,18 @@ public class minigolf extends Game {
     public Texture powerMeterOverlay;
     public Texture ballImg;
 	public String gamestate;
+    public static Ball ball = new Ball(205, 375);
+    public static float currentFrame = 0;
+    public static float startFrame = 0;
 
 	// scrolling background position variables
 	public int bgPosX1 = 1360;
 	public int bgPosX2 = 0;
 	
+    public boolean win = false;
+    public static boolean shooting = false;
+    public static boolean moving = false;
+
 	// initiate before game starts
 	@Override
 	public void create() {
@@ -57,6 +66,8 @@ public class minigolf extends Game {
 
         gamestate = "title";
 
+        Gdx.input.setInputProcessor(this);
+
         tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
@@ -72,6 +83,10 @@ public class minigolf extends Game {
 	// rendering the game
 	@Override
 	public void render() {
+        currentFrame += Gdx.graphics.getDeltaTime();
+
+        System.out.println(currentFrame);
+
 		// clear the previous frame
 		ScreenUtils.clear(0, 0, 0, 1);
 
@@ -134,6 +149,7 @@ public class minigolf extends Game {
                 // if user click button
                 if (Gdx.input.isTouched()) {
                     gamestate = "help";
+                    startFrame = currentFrame;
                     this.setScreen(new help(this));
                 }
             }
@@ -197,4 +213,52 @@ public class minigolf extends Game {
 		batch.dispose();
 		titleBG.dispose();
 	}
+        
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if(gamestate != "tile") {
+            if(ball.getXVelocity() == 0 && ball.getYVelocity() == 0){
+                moving = false;
+                shooting = true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        shooting = false;
+        moving = true;
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
 }

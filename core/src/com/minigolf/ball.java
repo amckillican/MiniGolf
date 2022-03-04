@@ -60,4 +60,24 @@ public class Ball {
     public int getSize() {
         return this.size;
     }
+
+    public void updatePos(float xVelocity, float yVelocity){
+        setX(this.x + (int) xVelocity);
+        setY(this.y + (int) yVelocity);
+    }
+
+    public void walls(int screenWidth, int screenHeight){
+        if(x >= screenWidth){
+            setXVelocity(-this.xVelocity);
+        }
+        else if (x <= 0){
+            setXVelocity(-this.xVelocity);
+        }
+        else if (y >= screenWidth){
+            setYVelocity(-this.yVelocity);
+        }
+        else if (y <= 0){
+            setYVelocity(-this.yVelocity);
+        }
+    }
 }
