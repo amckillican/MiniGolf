@@ -17,80 +17,87 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.minigolf.Ball;
+import com.minigolf.screens.endless;
 import com.minigolf.screens.help;
+import com.minigolf.screens.ninehole;
 
 public class minigolf extends Game implements InputProcessor {
-	// global initialization of variables
-	public OrthographicCamera camera;
+    // objects
+    public OrthographicCamera camera;
     public TiledMapRenderer tiledMapRenderer;
     public TiledMap tiledMap;
-	public ShapeRenderer shapeRenderer;
-	public SpriteBatch batch;
-	public BitmapFont font;
+    public ShapeRenderer shapeRenderer;
+
+    // static objects
+    public static SpriteBatch batch;
+    public static BitmapFont font;
+    
+    // static constructors
+    public static Ball ball = new Ball(205, 375);
+    
+    // textures
     public Texture titleBG;
     public Texture powerMeterBG;
     public Texture powerMeterFG;
     public Texture powerMeterOverlay;
     public Texture ballImg;
-	public String gamestate;
-    public static Ball ball = new Ball(205, 375);
+    
+    // static variables
     public static float currentFrame = 0;
     public static float startFrame = 0;
-
-	// scrolling background position variables
-	public int bgPosX1 = 1360;
-	public int bgPosX2 = 0;
-	
-    public boolean win = false;
+    public static boolean win = false;
     public static boolean shooting = false;
-    public static boolean moving = false;
+    
+    // variables
+    public String gamestate = "title";
+    public int bgPosX1 = 1360;
+    public int bgPosX2 = 0;
 
-	// initiate before game starts
-	@Override
-	public void create() {
-		// set the camera to the window resolution
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+    // initiate before game starts
+    @Override
+    public void create() {
+        // set the camera to the window resolution
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
 
-		// initiating the camera
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, w, h);
-		camera.update();
+        // initiating the camera
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, w, h);
+        camera.update();
 
-		// initializing shape renderer
-		shapeRenderer = new ShapeRenderer();
-		shapeRenderer.setAutoShapeType(true);
+        // initializing shape renderer
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
 
-		// initializing font
-		font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+        // initializing font
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
 
-        gamestate = "title";
-
+        // used for taking keyboard/mouse inputs
         Gdx.input.setInputProcessor(this);
 
+        // used for rendering the tile maps
         tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-		// initializing images
-		batch = new SpriteBatch();
-		titleBG = new Texture("gfx/Tiled/bg.png");
+        // initializing images
+        batch = new SpriteBatch();
+        titleBG = new Texture("gfx/Tiled/bg.png");
         powerMeterBG = new Texture("gfx/powermeter_bg.png");
         powerMeterFG = new Texture("gfx/powermeter_fg.png");
         powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
         ballImg = new Texture("gfx/ball.png");
-	}
+    }
 
-	// rendering the game
-	@Override
-	public void render() {
+    // rendering the game
+    @Override
+    public void render() {
+        // keep track of the game time in seconds
         currentFrame += Gdx.graphics.getDeltaTime();
 
-        System.out.println(currentFrame);
+        // clear the previous frame
+        ScreenUtils.clear(0, 0, 0, 1);
 
-		// clear the previous frame
-		ScreenUtils.clear(0, 0, 0, 1);
-
-		// drawing the background in the correct position
+        // drawing the background in the correct position
         batch.begin();
         batch.draw(titleBG, bgPosX1, 0);
         batch.draw(titleBG, bgPosX2, 0);
@@ -114,7 +121,7 @@ public class minigolf extends Game implements InputProcessor {
         // drawing rectangle
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, (float) 0.75);
-    	shapeRenderer.rect(300, 252, 281, 100);
+        shapeRenderer.rect(300, 252, 281, 100);
         shapeRenderer.rect(300, 62, 281, 100);
         shapeRenderer.rect(772, 252, 281, 100);
         shapeRenderer.rect(772, 62, 281, 100);
@@ -133,7 +140,7 @@ public class minigolf extends Game implements InputProcessor {
 
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    // gamestate = "ninehole";
+                    this.setScreen(new ninehole(this));
                 }
             }
         }
@@ -154,7 +161,7 @@ public class minigolf extends Game implements InputProcessor {
                 }
             }
         }
-
+        
         // endless hovering rendering
         if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 1053) {
             if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
@@ -162,10 +169,10 @@ public class minigolf extends Game implements InputProcessor {
                 shapeRenderer.setColor(0, 0, 0, 1);
                 shapeRenderer.rect(772, 252, 281, 100);
                 shapeRenderer.end();
-
+                
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
-                    // gamestate = "endless";
+                    this.setScreen(new endless(this));
                 }
             }
         }
@@ -196,24 +203,24 @@ public class minigolf extends Game implements InputProcessor {
         font.setColor(Color.BLACK);
         font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
         batch.end();
-		
-		// exiting the application
+
+        // exiting the application
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         }
 
-        if(!gamestate.equals("title")) {
+        if (!gamestate.equals("title")) {
             super.render();
         }
-	}
+    }
 
-	// closing resources for memory management
-	@Override
-	public void dispose() {
-		batch.dispose();
-		titleBG.dispose();
-	}
-        
+    // closing resources for memory management
+    @Override
+    public void dispose() {
+        batch.dispose();
+        titleBG.dispose();
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         return false;
@@ -231,9 +238,8 @@ public class minigolf extends Game implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(gamestate != "tile") {
-            if(ball.getXVelocity() == 0 && ball.getYVelocity() == 0){
-                moving = false;
+        if (gamestate != "tile") {
+            if (ball.getXVelocity() == 0 && ball.getYVelocity() == 0 && !win) {
                 shooting = true;
             }
         }
@@ -243,7 +249,6 @@ public class minigolf extends Game implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         shooting = false;
-        moving = true;
         return false;
     }
 
