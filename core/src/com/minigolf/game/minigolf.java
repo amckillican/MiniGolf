@@ -1,3 +1,13 @@
+/*
+*
+* Current Notes For Game:
+* - Game crashes when moving ball on help menu
+* - Cause unknown as there is no error message on crash
+* - Restart computer after crash or memory will build up and not be released
+*   - Will cause bluescreens/system crashes
+*
+*/
+
 package com.minigolf.game;
 
 import com.badlogic.gdx.Game;
@@ -31,23 +41,23 @@ public class minigolf extends Game implements InputProcessor {
     // static objects
     public static SpriteBatch batch;
     public static BitmapFont font;
-    
+
     // static constructors
     public static Ball ball = new Ball(205, 375);
-    
+
     // textures
     public Texture titleBG;
     public Texture powerMeterBG;
     public Texture powerMeterFG;
     public Texture powerMeterOverlay;
     public Texture ballImg;
-    
+
     // static variables
     public static float currentFrame = 0;
     public static float startFrame = 0;
     public static boolean win = false;
     public static boolean shooting = false;
-    
+
     // variables
     public String gamestate = "title";
     public int bgPosX1 = 1360;
@@ -86,6 +96,17 @@ public class minigolf extends Game implements InputProcessor {
         powerMeterFG = new Texture("gfx/powermeter_fg.png");
         powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
         ballImg = new Texture("gfx/ball.png");
+    }
+
+    // closing resources for memory management
+    @Override
+    public void dispose() {
+        batch.dispose();
+        titleBG.dispose();
+        powerMeterBG.dispose();
+        powerMeterFG.dispose();
+        powerMeterOverlay.dispose();
+        ballImg.dispose();
     }
 
     // rendering the game
@@ -161,7 +182,7 @@ public class minigolf extends Game implements InputProcessor {
                 }
             }
         }
-        
+
         // endless hovering rendering
         if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 1053) {
             if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
@@ -169,7 +190,7 @@ public class minigolf extends Game implements InputProcessor {
                 shapeRenderer.setColor(0, 0, 0, 1);
                 shapeRenderer.rect(772, 252, 281, 100);
                 shapeRenderer.end();
-                
+
                 // if user clicks button
                 if (Gdx.input.isTouched()) {
                     this.setScreen(new endless(this));
@@ -212,13 +233,6 @@ public class minigolf extends Game implements InputProcessor {
         if (!gamestate.equals("title")) {
             super.render();
         }
-    }
-
-    // closing resources for memory management
-    @Override
-    public void dispose() {
-        batch.dispose();
-        titleBG.dispose();
     }
 
     @Override
