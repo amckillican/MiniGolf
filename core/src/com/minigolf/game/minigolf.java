@@ -1,15 +1,7 @@
-/*
-*
-* Current Notes For Game:
-* - Game crashes when moving ball on help menu
-* - Cause unknown as there is no error message on crash
-* - Restart computer after crash or memory will build up and not be released
-*   - Will cause bluescreens/system crashes
-*
-*/
+package com.Minigolf.game;
 
-package com.minigolf.game;
-
+import com.Minigolf.game.Constructors.Ball;
+import com.Minigolf.game.Screens.help;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -26,47 +18,39 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.minigolf.Ball;
-import com.minigolf.screens.endless;
-import com.minigolf.screens.help;
-import com.minigolf.screens.ninehole;
 
-public class minigolf extends Game implements InputProcessor {
-    // objects
-    public OrthographicCamera camera;
-    public TiledMapRenderer tiledMapRenderer;
-    public TiledMap tiledMap;
-    public ShapeRenderer shapeRenderer;
+public class Minigolf extends Game implements InputProcessor {
+	public static Ball ball = new Ball(205, 375);
 
-    // static objects
-    public static SpriteBatch batch;
-    public static BitmapFont font;
+	public OrthographicCamera camera;
+	public TiledMapRenderer tiledMapRenderer;
+	public TiledMap tiledMap;
+	public ShapeRenderer shapeRenderer;
+	public static SpriteBatch batch;
+	public BitmapFont font;
 
-    // static constructors
-    public static Ball ball = new Ball(205, 375);
+	public Texture bg;
+	public Texture powerMeterBG;
+	public Texture powerMeterFG;
+	public Texture powerMeterOverlay;
+	public Texture ballImg;
 
-    // textures
-    public Texture titleBG;
-    public Texture powerMeterBG;
-    public Texture powerMeterFG;
-    public Texture powerMeterOverlay;
-    public Texture ballImg;
+	public static int mouseDownX = 0;
+	public static int mouseDownY = 0;
+	public static int mouseUpX = 0;
+	public static int mouseUpY = 0;
+	public String gamestate = "title";
+	public static float currentFrame = 0;
+	public static float startFrame = 0;
+	public static boolean shoot = false;
+	public static boolean dragging = false;
 
-    // static variables
-    public static float currentFrame = 0;
-    public static float startFrame = 0;
-    public static boolean win = false;
-    public static boolean shooting = false;
+	int bgPos1 = -1360;
+	int bgPos2 = 0;
 
-    // variables
-    public String gamestate = "title";
-    public int bgPosX1 = 1360;
-    public int bgPosX2 = 0;
-
-    // initiate before game starts
-    @Override
-    public void create() {
-        // set the camera to the window resolution
+	@Override
+	public void create() {
+		// set the camera to the window resolution
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
@@ -75,144 +59,114 @@ public class minigolf extends Game implements InputProcessor {
         camera.setToOrtho(false, w, h);
         camera.update();
 
-        // initializing shape renderer
-        shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setAutoShapeType(true);
+		// initializing shape renderer
+		shapeRenderer = new ShapeRenderer();
+		shapeRenderer.setAutoShapeType(true);
 
-        // initializing font
+		// initializing font
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
 
-        // used for taking keyboard/mouse inputs
+		// used for taking keyboard/mouse inputs
         Gdx.input.setInputProcessor(this);
 
-        // used for rendering the tile maps
+		// used for rendering the tile maps
         tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-        // initializing images
-        batch = new SpriteBatch();
-        titleBG = new Texture("gfx/Tiled/bg.png");
-        powerMeterBG = new Texture("gfx/powermeter_bg.png");
+		batch = new SpriteBatch();
+		bg = new Texture("gfx/Tiled/bg.png");
+		powerMeterBG = new Texture("gfx/powermeter_bg.png");
         powerMeterFG = new Texture("gfx/powermeter_fg.png");
         powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
         ballImg = new Texture("gfx/ball.png");
-    }
+	}
 
-    // closing resources for memory management
-    @Override
-    public void dispose() {
-        batch.dispose();
-        titleBG.dispose();
-        powerMeterBG.dispose();
-        powerMeterFG.dispose();
-        powerMeterOverlay.dispose();
-        ballImg.dispose();
-    }
+	@Override
+	public void dispose() {
+		batch.dispose();
+		bg.dispose();
+		font.dispose();
+		shapeRenderer.dispose();
+		tiledMap.dispose();
+	}
 
-    // rendering the game
-    @Override
-    public void render() {
-        // keep track of the game time in seconds
+	@Override
+	public void render() {
+		ScreenUtils.clear(0, 0, 0, 1);
+
+		// keep track of the game time in seconds
         currentFrame += Gdx.graphics.getDeltaTime();
 
-        // clear the previous frame
-        ScreenUtils.clear(0, 0, 0, 1);
+		// scrolling the background infinitely
+		bgPos1 += 1;
+		bgPos2 += 1;
 
-        // drawing the background in the correct position
-        batch.begin();
-        batch.draw(titleBG, bgPosX1, 0);
-        batch.draw(titleBG, bgPosX2, 0);
-        batch.end();
+		if (bgPos2 >= 1360) {
+			bgPos2 = -1360;
+		} else if (bgPos1 >= 1360) {
+			bgPos1 = -1360;
+		}
 
-        // scroll the backgrounds
-        bgPosX1 -= 1;
-        bgPosX2 -= 1;
+		// drawing the sprites
+		batch.begin();
+		batch.draw(bg, bgPos1, 0);
+		batch.draw(bg, bgPos2, 0);
+		batch.end();
 
-        // "leap frog" the backgrounds for infinite scrolling effect
-        if (bgPosX1 <= -1360) {
-            bgPosX1 = 1360;
-        } else if (bgPosX2 <= -1360) {
-            bgPosX2 = 1360;
-        }
+		// alpha channel
+		Gdx.gl.glEnable(GL30.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
 
-        // alpha channel
-        Gdx.gl.glEnable(GL30.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
+		// drawing rectangle
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(0, 0, 0, (float) 0.75);
+		shapeRenderer.rect(300, 252, 281, 100);
+		shapeRenderer.rect(300, 62, 281, 100);
+		shapeRenderer.rect(772, 252, 281, 100);
+		shapeRenderer.rect(772, 62, 281, 100);
+		shapeRenderer.end();
+		
+		// alpha channel end
+		Gdx.gl.glDisable(GL30.GL_BLEND);
+		
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		
+		if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
+			if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
+				shapeRenderer.rect(300, 252, 281, 100);
+			}
+		}
+		
+		if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
+			if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
+				shapeRenderer.rect(300, 62, 281, 100);
 
-        // drawing rectangle
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0, 0, 0, (float) 0.75);
-        shapeRenderer.rect(300, 252, 281, 100);
-        shapeRenderer.rect(300, 62, 281, 100);
-        shapeRenderer.rect(772, 252, 281, 100);
-        shapeRenderer.rect(772, 62, 281, 100);
-        shapeRenderer.end();
-
-        // alpha channel end
-        Gdx.gl.glDisable(GL30.GL_BLEND);
-
-        // 9-hole hovering rendering
-        if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 581) {
-            if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(0, 0, 0, 1);
-                shapeRenderer.rect(300, 252, 281, 100);
-                shapeRenderer.end();
-
-                // if user clicks button
-                if (Gdx.input.isTouched()) {
-                    this.setScreen(new ninehole(this));
-                }
-            }
-        }
-
-        // help hovering rendering
-        if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 581) {
-            if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(0, 0, 0, 1);
-                shapeRenderer.rect(300, 62, 281, 100);
-                shapeRenderer.end();
-
-                // if user click button
-                if (Gdx.input.isTouched()) {
+				if (Gdx.input.isTouched()) {
                     gamestate = "help";
                     startFrame = currentFrame;
                     this.setScreen(new help(this));
                 }
-            }
-        }
-
-        // endless hovering rendering
-        if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 1053) {
-            if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(0, 0, 0, 1);
-                shapeRenderer.rect(772, 252, 281, 100);
-                shapeRenderer.end();
-
-                // if user clicks button
-                if (Gdx.input.isTouched()) {
-                    this.setScreen(new endless(this));
-                }
-            }
-        }
-
-        // exit hovering rendering
-        if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 1053) {
-            if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(0, 0, 0, 1);
-                shapeRenderer.rect(772, 62, 281, 100);
-                shapeRenderer.end();
-                // if user clicks button
-                if (Gdx.input.isTouched()) {
+			}
+		}
+		
+		if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
+			if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
+				shapeRenderer.rect(772, 252, 281, 100);
+			}
+		}
+		
+		if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
+			if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
+				shapeRenderer.rect(772, 62, 281, 100);
+				if (Gdx.input.isTouched()) {
                     Gdx.app.exit();
                 }
-            }
-        }
+			}
+		}
 
-        // display the text on the buttons
+		shapeRenderer.end();
+
+		// display the text on the buttons
         batch.begin();
         font.setColor(Color.WHITE);
         font.getData().setScale(2);
@@ -225,59 +179,60 @@ public class minigolf extends Game implements InputProcessor {
         font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
         batch.end();
 
-        // exiting the application
+		// exiting the application
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
             Gdx.app.exit();
         }
 
-        if (!gamestate.equals("title")) {
+		if (!gamestate.equals("title")) {
             super.render();
         }
-    }
+	}
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		mouseDownX = screenX;
+		mouseDownY = screenY;
+		return false;
+	}
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		mouseUpX = screenX;
+		mouseUpY = screenY;
+		if(!gamestate.equals("title") && currentFrame - startFrame >= .5){
+			shoot = true;
+		}
+		return false;
+	}
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (gamestate != "tile") {
-            if (ball.getXVelocity() == 0 && ball.getYVelocity() == 0 && !win) {
-                shooting = true;
-            }
-        }
-        return false;
-    }
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        shooting = false;
-        return false;
-    }
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
 
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
 
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
 
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
-    }
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		return false;
+	}
 }

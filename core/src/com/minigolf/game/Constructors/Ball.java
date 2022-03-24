@@ -1,4 +1,4 @@
-package com.minigolf;
+package com.Minigolf.game.Constructors;
 
 public class Ball {
     private int x;
@@ -17,7 +17,7 @@ public class Ball {
         this.yVelocity = 0;
         this.scale = 1;
         this.size = 16;
-        this.friction = 1;
+        this.friction = 2;
         this.maxSpeed = 80;
     }
 
@@ -91,8 +91,8 @@ public class Ball {
         if (yVelocity < -maxSpeed)
             yVelocity = -maxSpeed;
 
-        setX(x + xVelocity);
-        setY(y + yVelocity);
+        x += xVelocity;
+        y += yVelocity;
 
         if (xVelocity > 0)
             xVelocity -= friction;
@@ -102,17 +102,25 @@ public class Ball {
             yVelocity -= friction;
         if (yVelocity < 0)
             yVelocity += friction;
+        if (xVelocity >= -3 && xVelocity <= 3)
+            xVelocity = 0;
+        if (yVelocity >= -3 && yVelocity <= 3)
+            yVelocity = 0;
     }
 
     public void walls(int screenWidth, int screenHeight) {
-        if (x >= screenWidth - size) {
-            setXVelocity(-this.xVelocity);
+        if (x >= screenWidth) {
+            x = screenWidth;
+            xVelocity *= -1;
         } else if (x <= 0) {
-            setXVelocity(-this.xVelocity);
-        } else if (y >= screenHeight - size) {
-            setYVelocity(-this.yVelocity);
-        } else if (y <= 0) {
-            setYVelocity(-this.yVelocity);
+            x = size;
+            xVelocity *= -1;
+        } else if (y + size >= screenHeight) {
+            y = screenHeight;
+            yVelocity *= -1;
+        } else if (y <= size) {
+            y = size;
+            yVelocity *= -1;
         }
     }
 }
