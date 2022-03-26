@@ -51,38 +51,39 @@ public class Minigolf extends Game implements InputProcessor {
 	@Override
 	public void create() {
 		// set the camera to the window resolution
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
 
-        // initiating the camera
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, w, h);
-        camera.update();
+		// initiating the camera
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, w, h);
+		camera.update();
 
 		// initializing shape renderer
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
 
 		// initializing font
-        font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+		font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
 
 		// used for taking keyboard/mouse inputs
-        Gdx.input.setInputProcessor(this);
+		Gdx.input.setInputProcessor(this);
 
 		// used for rendering the tile maps
-        tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 		batch = new SpriteBatch();
 		bg = new Texture("gfx/Tiled/bg.png");
 		powerMeterBG = new Texture("gfx/powermeter_bg.png");
-        powerMeterFG = new Texture("gfx/powermeter_fg.png");
-        powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
-        ballImg = new Texture("gfx/ball.png");
+		powerMeterFG = new Texture("gfx/powermeter_fg.png");
+		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
+		ballImg = new Texture("gfx/ball.png");
 	}
 
 	@Override
 	public void dispose() {
+		System.out.println("Dispose");
 		batch.dispose();
 		bg.dispose();
 		font.dispose();
@@ -95,7 +96,7 @@ public class Minigolf extends Game implements InputProcessor {
 		ScreenUtils.clear(0, 0, 0, 1);
 
 		// keep track of the game time in seconds
-        currentFrame += Gdx.graphics.getDeltaTime();
+		currentFrame += Gdx.graphics.getDeltaTime();
 
 		// scrolling the background infinitely
 		bgPos1 += 1;
@@ -125,68 +126,69 @@ public class Minigolf extends Game implements InputProcessor {
 		shapeRenderer.rect(772, 252, 281, 100);
 		shapeRenderer.rect(772, 62, 281, 100);
 		shapeRenderer.end();
-		
+
 		// alpha channel end
 		Gdx.gl.glDisable(GL30.GL_BLEND);
-		
+
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		
+
 		if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
 			if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 				shapeRenderer.rect(300, 252, 281, 100);
 			}
 		}
-		
+
 		if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
 			if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
 				shapeRenderer.rect(300, 62, 281, 100);
 
 				if (Gdx.input.isTouched()) {
-                    gamestate = "help";
-                    startFrame = currentFrame;
-                    this.setScreen(new help(this));
-                }
+					gamestate = "help";
+					startFrame = currentFrame;
+					this.setScreen(new help(this));
+				}
 			}
 		}
-		
+
 		if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
 			if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 				shapeRenderer.rect(772, 252, 281, 100);
 			}
 		}
-		
+
 		if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
 			if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
 				shapeRenderer.rect(772, 62, 281, 100);
 				if (Gdx.input.isTouched()) {
-                    Gdx.app.exit();
-                }
+					Gdx.app.exit();
+				}
 			}
 		}
 
 		shapeRenderer.end();
 
 		// display the text on the buttons
-        batch.begin();
-        font.setColor(Color.WHITE);
-        font.getData().setScale(2);
-        font.draw(batch, "NINE HOLE", 325, 327);
-        font.draw(batch, "HELP", 385, 133);
-        font.draw(batch, "ENDLESS", 810, 327);
-        font.draw(batch, "EXIT", 865, 133);
-        font.getData().setScale(1);
-        font.setColor(Color.BLACK);
-        font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
-        batch.end();
+		batch.begin();
+		font.setColor(Color.WHITE);
+		font.getData().setScale(2);
+		font.draw(batch, "NINE HOLE", 325, 327);
+		font.draw(batch, "HELP", 385, 133);
+		font.draw(batch, "ENDLESS", 810, 327);
+		font.draw(batch, "EXIT", 865, 133);
+		font.getData().setScale(1);
+		font.setColor(Color.BLACK);
+		font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
+		batch.end();
 
 		// exiting the application
-        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			System.out.println("Close");
+			Gdx.app.exit();
+		}
 
 		if (!gamestate.equals("title")) {
-            super.render();
-        }
+			super.render();
+		}
 	}
 
 	@Override
@@ -200,7 +202,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		mouseUpX = screenX;
 		mouseUpY = screenY;
-		if(!gamestate.equals("title") && currentFrame - startFrame >= .5){
+		if (!gamestate.equals("title") && currentFrame - startFrame >= .5) {
 			shoot = true;
 		}
 		return false;
