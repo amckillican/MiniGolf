@@ -20,8 +20,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Minigolf extends Game implements InputProcessor {
+	// static objects
 	public static Ball ball = new Ball(205, 375);
-
 	public OrthographicCamera camera;
 	public TiledMapRenderer tiledMapRenderer;
 	public TiledMap tiledMap;
@@ -29,12 +29,14 @@ public class Minigolf extends Game implements InputProcessor {
 	public static SpriteBatch batch;
 	public BitmapFont font;
 
+	// textures
 	public Texture bg;
 	public Texture powerMeterBG;
 	public Texture powerMeterFG;
 	public Texture powerMeterOverlay;
 	public Texture ballImg;
 
+	// variables
 	public static int mouseDownX = 0;
 	public static int mouseDownY = 0;
 	public static int mouseUpX = 0;
@@ -73,6 +75,7 @@ public class Minigolf extends Game implements InputProcessor {
 		tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
+		// textures
 		batch = new SpriteBatch();
 		bg = new Texture("gfx/Tiled/bg.png");
 		powerMeterBG = new Texture("gfx/powermeter_bg.png");
@@ -83,6 +86,7 @@ public class Minigolf extends Game implements InputProcessor {
 
 	@Override
 	public void dispose() {
+		// dispose the textures
 		System.out.println("Dispose");
 		batch.dispose();
 		bg.dispose();
@@ -93,6 +97,7 @@ public class Minigolf extends Game implements InputProcessor {
 
 	@Override
 	public void render() {
+		// clear the previous frame
 		ScreenUtils.clear(0, 0, 0, 1);
 
 		// keep track of the game time in seconds
@@ -115,7 +120,7 @@ public class Minigolf extends Game implements InputProcessor {
 			batch.draw(bg, bgPos2, 0);
 			batch.end();
 
-			// alpha channel
+			// transparancy
 			Gdx.gl.glEnable(GL30.GL_BLEND);
 			Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
 
@@ -128,17 +133,19 @@ public class Minigolf extends Game implements InputProcessor {
 			shapeRenderer.rect(772, 62, 281, 100);
 			shapeRenderer.end();
 
-			// alpha channel end
+			// transparancy
 			Gdx.gl.glDisable(GL30.GL_BLEND);
 
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
+			// hovering 9-hole button
 			if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 					shapeRenderer.rect(300, 252, 281, 100);
 				}
 			}
 
+			// hovering help button
 			if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
 				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
 					shapeRenderer.rect(300, 62, 281, 100);
@@ -146,17 +153,20 @@ public class Minigolf extends Game implements InputProcessor {
 					if (Gdx.input.isTouched()) {
 						gamestate = "help";
 						startFrame = currentFrame;
+						ball.setBall(205, 375);
 						this.setScreen(new help(this));
 					}
 				}
 			}
 
+			// hovering endless button
 			if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 					shapeRenderer.rect(772, 252, 281, 100);
 				}
 			}
 
+			// hovering exit button
 			if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
 				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
 					shapeRenderer.rect(772, 62, 281, 100);
@@ -182,14 +192,19 @@ public class Minigolf extends Game implements InputProcessor {
 			batch.end();
 
 			// exiting the application
-			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			if (Gdx.input.isKeyPressed(Keys.ESCAPE) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
 				System.out.println("Close");
 				Gdx.app.exit();
 			}
 		}
 
+		// render the game
 		if (!gamestate.equals("title")) {
 			super.render();
+			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+				startFrame = currentFrame;
+				gamestate = "title";
+			}
 		}
 	}
 

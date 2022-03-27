@@ -9,6 +9,7 @@ public class Ball {
     private int size;
     private int friction;
     private int maxSpeed;
+    private boolean win = false;
 
     public Ball(int x, int y) {
         this.x = x;
@@ -19,6 +20,7 @@ public class Ball {
         this.size = 16;
         this.friction = 2;
         this.maxSpeed = 80;
+        this.win = false;
     }
 
     public int getX() {
@@ -80,6 +82,26 @@ public class Ball {
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
+
+    public boolean getWin(){
+        return win;
+    }
+
+    public void setWin(boolean win){
+        this.win = win;
+    }
+
+    public void setBall(int x, int y){
+		this.x = x;
+        this.y = y;
+        this.xVelocity = 0;
+        this.yVelocity = 0;
+        this.scale = 1;
+        this.size = 16;
+        this.friction = 2;
+        this.maxSpeed = 80;
+        this.win = false;
+	}
 
     public void updatePos() {
         if (xVelocity > maxSpeed)
