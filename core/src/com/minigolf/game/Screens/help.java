@@ -19,15 +19,6 @@ public class help implements Screen {
         game.tiledMapRenderer.setView(game.camera);
         game.tiledMapRenderer.render();
 
-        String shotStr = "STROKE: " + Minigolf.ball.getShots();
-
-        // display the text on the buttons
-        Minigolf.batch.begin();
-        Minigolf.font.setColor(1, 1, 1, 1);
-        Minigolf.font.getData().setScale(1);
-        Minigolf.font.draw(Minigolf.batch, shotStr, 10, 750);
-        Minigolf.batch.end();
-
         // getting ball position every frame
         int ballPosX = Minigolf.ball.getX();
         int ballPosY = Minigolf.ball.getY();
@@ -57,7 +48,15 @@ public class help implements Screen {
             }
         }
 
+        // string for displaying number of strokes
+        String shotStr = "STROKE: " + Minigolf.ball.getShots();
+
         Minigolf.batch.begin();
+        
+        // displaying number of strokes
+        Minigolf.font.setColor(1, 1, 1, 1);
+        Minigolf.font.getData().setScale(1);
+        Minigolf.font.draw(Minigolf.batch, shotStr, 10, 750);
 
         // drawing ball
         Minigolf.batch.draw(game.ballImg, ballPosX, ballPosY);
