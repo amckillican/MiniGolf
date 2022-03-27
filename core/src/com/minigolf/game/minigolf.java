@@ -204,9 +204,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		mouseUpX = screenX;
 		mouseUpY = screenY;
-		if (!gamestate.equals("title") && currentFrame - startFrame >= .5) {
-			shoot = true;
-		}
+		shoot = true;
 		return false;
 	}
 

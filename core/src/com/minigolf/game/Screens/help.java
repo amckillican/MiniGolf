@@ -27,8 +27,8 @@ public class help implements Screen {
             if (Gdx.input.isTouched()) {
                 if (Gdx.input.getX() >= Minigolf.ball.getX()
                         && Gdx.input.getX() <= Minigolf.ball.getX() + Minigolf.ball.getSize()) {
-                    if (Gdx.input.getY() >= Minigolf.ball.getY()
-                            && Gdx.input.getY() <= Minigolf.ball.getY() + Minigolf.ball.getSize()) {
+                    if (765 - Gdx.input.getY() >= Minigolf.ball.getY()
+                            && 765 - Gdx.input.getY() <= Minigolf.ball.getY() + Minigolf.ball.getSize()) {
                         Minigolf.dragging = true;
                     }
                 }
@@ -37,10 +37,11 @@ public class help implements Screen {
                 Minigolf.ball.setXVelocity(-(Minigolf.mouseUpX - Minigolf.mouseDownX) / 2);
                 Minigolf.ball.setYVelocity((Minigolf.mouseUpY - Minigolf.mouseDownY) / 2);
                 Minigolf.shoot = false;
+                Minigolf.dragging = false;
             }
         }
 
-        System.out.print("x: " + Minigolf.ball.getX());
+        System.out.print("\tx: " + Minigolf.ball.getX());
         System.out.print("\ty: " + Minigolf.ball.getY());
         System.out.print("\txV: " + Minigolf.ball.getXVelocity());
         System.out.println("\tyV: " + Minigolf.ball.getYVelocity());

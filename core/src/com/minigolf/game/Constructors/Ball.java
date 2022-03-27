@@ -115,11 +115,11 @@ public class Ball {
         } else if (x <= 0) {
             x = size;
             xVelocity *= -1;
-        } else if (y + size >= screenHeight) {
-            y = screenHeight;
+        } else if (y >= screenHeight - size) {
+            y = screenHeight - size;
             yVelocity *= -1;
-        } else if (y <= size) {
-            y = size;
+        } else if (y <= 0) {
+            y = 0;
             yVelocity *= -1;
         }
     }
