@@ -5,24 +5,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 public class help implements Screen {
+    // create screen
     public Minigolf game;
 
+    // create screen
     public help(Minigolf game) {
         this.game = game;
     }
 
     @Override
     public void render(float delta) {
+        // set the camera to the tmx map
         game.tiledMapRenderer.setView(game.camera);
         game.tiledMapRenderer.render();
 
+        // ball physics
         Minigolf.ball.updatePos();
         Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        // drawing ball
         Minigolf.batch.begin();
         Minigolf.batch.draw(game.ballImg, Minigolf.ball.getX(), Minigolf.ball.getY());
         Minigolf.batch.end();
 
+        // if user clicks and drags on the ball
+        // shoot the ball in the intended direction
         if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
             if (Gdx.input.isTouched()) {
                 if (Gdx.input.getX() >= Minigolf.ball.getX()
@@ -41,10 +48,41 @@ public class help implements Screen {
             }
         }
 
-        System.out.print("\tx: " + Minigolf.ball.getX());
-        System.out.print("\ty: " + Minigolf.ball.getY());
-        System.out.print("\txV: " + Minigolf.ball.getXVelocity());
-        System.out.println("\tyV: " + Minigolf.ball.getYVelocity());
+        Minigolf.batch.begin();
+
+        // display the power meter
+        if (Minigolf.dragging) {
+            // render on the left size
+            if (Minigolf.ball.getX() > 64) {
+                // render above the ball
+                if (765 - Minigolf.ball.getY() > 64) {
+                    Minigolf.batch.draw(game.powerMeterBG, Minigolf.ball.getX() - 32, Minigolf.ball.getY());
+                }
+                // render below the ball
+                if (765 - Minigolf.ball.getY() <= 64) {
+                    Minigolf.batch.draw(game.powerMeterBG, Minigolf.ball.getX() - 32, Minigolf.ball.getY() - 64);
+                }
+            }
+            // render on the right size
+            else if (Minigolf.ball.getX() <= 64) {
+                // render above the ball
+                if (765 - Minigolf.ball.getY() > 64) {
+                    Minigolf.batch.draw(game.powerMeterBG, Minigolf.ball.getX() + 32, Minigolf.ball.getY());
+                }
+                // render below the ball
+                if (765 - Minigolf.ball.getY() <= 64) {
+                    Minigolf.batch.draw(game.powerMeterBG, Minigolf.ball.getX() + 32, Minigolf.ball.getY() - 64);
+                }
+            }
+        }
+
+        Minigolf.batch.end();
+
+        // debugging
+        System.out.print("x: " + Minigolf.ball.getX());
+        System.out.print(" y: " + (765 - Minigolf.ball.getY()));
+        System.out.print(" xV: " + Minigolf.ball.getXVelocity());
+        System.out.println(" yV: " + Minigolf.ball.getYVelocity());
     }
 
     @Override

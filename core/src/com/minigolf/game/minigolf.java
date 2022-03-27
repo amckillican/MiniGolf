@@ -210,6 +210,7 @@ public class Minigolf extends Game implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// get the mouse position
 		mouseDownX = screenX;
 		mouseDownY = screenY;
 		return false;
@@ -217,6 +218,7 @@ public class Minigolf extends Game implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// get mouse position
 		mouseUpX = screenX;
 		mouseUpY = screenY;
 		shoot = true;
