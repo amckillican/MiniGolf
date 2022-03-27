@@ -9,18 +9,20 @@ public class Ball {
     private int size;
     private int friction;
     private int maxSpeed;
+    private int shots;
     private boolean win = false;
 
     public Ball(int x, int y) {
         this.x = x;
         this.y = y;
-        this.xVelocity = 0;
-        this.yVelocity = 0;
-        this.scale = 1;
-        this.size = 16;
-        this.friction = 2;
-        this.maxSpeed = 80;
-        this.win = false;
+        xVelocity = 0;
+        yVelocity = 0;
+        scale = 1;
+        size = 16;
+        friction = 2;
+        maxSpeed = 80;
+        shots = 0;
+        win = false;
     }
 
     public int getX() {
@@ -91,16 +93,25 @@ public class Ball {
         this.win = win;
     }
 
+    public int getShots() {
+        return shots;
+    }
+
+    public void addShot() {
+        shots++;
+    }
+
     public void setBall(int x, int y) {
         this.x = x;
         this.y = y;
-        this.xVelocity = 0;
-        this.yVelocity = 0;
-        this.scale = 1;
-        this.size = 16;
-        this.friction = 2;
-        this.maxSpeed = 80;
-        this.win = false;
+        xVelocity = 0;
+        yVelocity = 0;
+        scale = 1;
+        size = 16;
+        friction = 2;
+        maxSpeed = 80;
+        shots = 0;
+        win = false;
     }
 
     public void updatePos() {

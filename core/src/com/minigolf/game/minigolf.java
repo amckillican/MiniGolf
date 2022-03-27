@@ -6,7 +6,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,7 +26,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public TiledMap tiledMap;
 	public ShapeRenderer shapeRenderer;
 	public static SpriteBatch batch;
-	public BitmapFont font;
+	public static BitmapFont font;
 
 	// textures
 	public Texture bg;
@@ -180,14 +179,14 @@ public class Minigolf extends Game implements InputProcessor {
 
 			// display the text on the buttons
 			batch.begin();
-			font.setColor(Color.WHITE);
+			font.setColor(1, 1, 1, 1);
 			font.getData().setScale(2);
 			font.draw(batch, "NINE HOLE", 325, 327);
 			font.draw(batch, "HELP", 385, 133);
 			font.draw(batch, "ENDLESS", 810, 327);
 			font.draw(batch, "EXIT", 865, 133);
 			font.getData().setScale(1);
-			font.setColor(Color.BLACK);
+			font.setColor(0, 0, 0, 1);
 			font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
 			batch.end();
 
