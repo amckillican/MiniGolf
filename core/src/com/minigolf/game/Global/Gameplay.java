@@ -1,10 +1,10 @@
-package com.Minigolf.game.Screens;
+package com.Minigolf.game.Global;
 
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Displays {
+public class Gameplay {
     public static TextureRegion region;
 
     public static int powerPosX;
@@ -13,7 +13,36 @@ public class Displays {
     public static int ballPosY;
     public static int powerLevel;
 
-    public static void displays() {
+    public static void gameplay() {
+        // set the camera to the tmx map
+        Minigolf.tiledMapRenderer.setView(Minigolf.camera);
+        Minigolf.tiledMapRenderer.render();
+
+        // ball physics
+        Minigolf.ball.updatePos();
+        Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        // if user clicks and drags on the ball
+        // shoot the ball in the intended direction
+        if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+            if (Gdx.input.isTouched()) {
+                if (Gdx.input.getX() >= Gameplay.ballPosX
+                        && Gdx.input.getX() <= Gameplay.ballPosX + Minigolf.ball.getSize()) {
+                    if (765 - Gdx.input.getY() >= Gameplay.ballPosY
+                            && 765 - Gdx.input.getY() <= Gameplay.ballPosY + Minigolf.ball.getSize()) {
+                        Minigolf.dragging = true;
+                    }
+                }
+            } else if (Minigolf.shoot == true && Minigolf.dragging == true && Minigolf.ball.getXVelocity() == 0
+                    && Minigolf.ball.getYVelocity() == 0) {
+                Minigolf.ball.setXVelocity(-(Minigolf.mouseUpX - Minigolf.mouseDownX) / 2);
+                Minigolf.ball.setYVelocity((Minigolf.mouseUpY - Minigolf.mouseDownY) / 2);
+                Minigolf.ball.addShot();
+                Minigolf.shoot = false;
+                Minigolf.dragging = false;
+            }
+        }
+
         ballPosX = Minigolf.ball.getX();
         ballPosY = Minigolf.ball.getY();
 
@@ -65,7 +94,7 @@ public class Displays {
             powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
 
             // maximum power level
-            if(powerLevel >= 64){
+            if (powerLevel >= 64) {
                 powerLevel = 64;
             }
 

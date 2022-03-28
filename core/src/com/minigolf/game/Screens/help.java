@@ -1,7 +1,7 @@
 package com.Minigolf.game.Screens;
 
 import com.Minigolf.game.Minigolf;
-import com.badlogic.gdx.Gdx;
+import com.Minigolf.game.Global.Gameplay;
 import com.badlogic.gdx.Screen;
 
 public class help implements Screen {
@@ -15,40 +15,12 @@ public class help implements Screen {
 
     @Override
     public void render(float delta) {
-        // set the camera to the tmx map
-        game.tiledMapRenderer.setView(game.camera);
-        game.tiledMapRenderer.render();
-
-        // ball physics
-        Minigolf.ball.updatePos();
-        Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        // if user clicks and drags on the ball
-        // shoot the ball in the intended direction
-        if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
-            if (Gdx.input.isTouched()) {
-                if (Gdx.input.getX() >= Displays.ballPosX
-                        && Gdx.input.getX() <= Displays.ballPosX + Minigolf.ball.getSize()) {
-                    if (765 - Gdx.input.getY() >= Displays.ballPosY
-                            && 765 - Gdx.input.getY() <= Displays.ballPosY + Minigolf.ball.getSize()) {
-                        Minigolf.dragging = true;
-                    }
-                }
-            } else if (Minigolf.shoot == true && Minigolf.dragging == true && Minigolf.ball.getXVelocity() == 0
-                    && Minigolf.ball.getYVelocity() == 0) {
-                Minigolf.ball.setXVelocity(-(Minigolf.mouseUpX - Minigolf.mouseDownX) / 2);
-                Minigolf.ball.setYVelocity((Minigolf.mouseUpY - Minigolf.mouseDownY) / 2);
-                Minigolf.ball.addShot();
-                Minigolf.shoot = false;
-                Minigolf.dragging = false;
-            }
-        }
-
-        Displays.displays();
+        // method for physics, ui, and other things that will be used in other screens
+        Gameplay.gameplay();
 
         // debugging
-        System.out.print("x: " + Displays.ballPosX);
-        System.out.print(" y: " + (765 - Displays.ballPosY));
+        System.out.print("x: " + Gameplay.ballPosX);
+        System.out.print(" y: " + (765 - Gameplay.ballPosY));
         System.out.print(" xV: " + Minigolf.ball.getXVelocity());
         System.out.println(" yV: " + Minigolf.ball.getYVelocity());
     }

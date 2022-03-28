@@ -21,8 +21,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Minigolf extends Game implements InputProcessor {
 	// static objects
 	public static Ball ball = new Ball(205, 375);
-	public OrthographicCamera camera;
-	public TiledMapRenderer tiledMapRenderer;
+	public static OrthographicCamera camera;
+	public static TiledMapRenderer tiledMapRenderer;
 	public TiledMap tiledMap;
 	public ShapeRenderer shapeRenderer;
 	public static SpriteBatch batch;
