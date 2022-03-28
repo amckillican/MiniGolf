@@ -34,6 +34,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static Texture powerMeterFG;
 	public static Texture powerMeterOverlay;
 	public static Texture ballImg;
+	public static Texture holeImg;
 
 	// variables
 	public static int mouseDownX = 0;
@@ -81,7 +82,7 @@ public class Minigolf extends Game implements InputProcessor {
 		powerMeterFG = new Texture("gfx/powermeter_fg.png");
 		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
 		ballImg = new Texture("gfx/ball.png");
-
+		holeImg = new Texture("gfx/hole.png");
 	}
 
 	@Override

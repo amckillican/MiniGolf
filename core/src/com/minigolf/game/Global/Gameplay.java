@@ -42,22 +42,30 @@ public class Gameplay {
                 Minigolf.dragging = false;
             }
         }
-
+        
         ballPosX = Minigolf.ball.getX();
         ballPosY = Minigolf.ball.getY();
+        
+        if(ballPosX >= 1100 && ballPosX <= 1116){
+            if(ballPosY >= 350 && ballPosY <= 369){
+                Minigolf.ball.setWin(true);
+                System.out.println("win");
+            }
+        }
 
         // string for displaying number of strokes
         String shotStr = "STROKE: " + Minigolf.ball.getShots();
 
         Minigolf.batch.begin();
-
+        
         // displaying number of strokes
         Minigolf.font.setColor(1, 1, 1, 1);
         Minigolf.font.getData().setScale(1);
         Minigolf.font.draw(Minigolf.batch, shotStr, 10, 750);
-
-        // drawing ball
+        
+        // drawing ball and hole
         Minigolf.batch.draw(Minigolf.ballImg, ballPosX, ballPosY);
+        Minigolf.batch.draw(Minigolf.holeImg, 1100, 375);
 
         // where to render power meter
         if (Minigolf.dragging) {
@@ -106,7 +114,7 @@ public class Gameplay {
             Minigolf.batch.draw(region, powerPosX, powerPosY);
             Minigolf.batch.draw(Minigolf.powerMeterOverlay, powerPosX, powerPosY);
         }
-
+        
         Minigolf.batch.end();
     }
 }
