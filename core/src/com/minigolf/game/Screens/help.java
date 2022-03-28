@@ -20,7 +20,7 @@ public class help implements Screen {
 
         // debugging
         // System.out.print("x: " + Gameplay.ballPosX);
-        // System.out.print(" y: " + (765 - Gameplay.ballPosY));
+        // System.out.println(" y: " + (765 - Gameplay.ballPosY));
         // System.out.print(" xV: " + Minigolf.ball.getXVelocity());
         // System.out.println(" yV: " + Minigolf.ball.getYVelocity());
     }

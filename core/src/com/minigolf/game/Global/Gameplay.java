@@ -24,7 +24,7 @@ public class Gameplay {
 
         // if user clicks and drags on the ball
         // shoot the ball in the intended direction
-        if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+        if (Minigolf.currentFrame - Minigolf.startFrame >= .5 && Minigolf.ball.getWin() == false) {
             if (Gdx.input.isTouched()) {
                 if (Gdx.input.getX() >= Gameplay.ballPosX
                         && Gdx.input.getX() <= Gameplay.ballPosX + Minigolf.ball.getSize()) {
@@ -43,13 +43,14 @@ public class Gameplay {
             }
         }
         
+        // getting ball position
         ballPosX = Minigolf.ball.getX();
         ballPosY = Minigolf.ball.getY();
         
-        if(ballPosX >= 1100 && ballPosX <= 1116){
-            if(ballPosY >= 350 && ballPosY <= 369){
-                Minigolf.ball.setWin(true);
-                System.out.println("win");
+        // if ball enters hole trigger win sequence
+        if(ballPosX >= 1085 && ballPosX <= 1115){
+            if(ballPosY >= 375 && ballPosY <= 405){
+                Minigolf.ball.Win(1100, 375);
             }
         }
 
@@ -64,8 +65,8 @@ public class Gameplay {
         Minigolf.font.draw(Minigolf.batch, shotStr, 10, 750);
         
         // drawing ball and hole
-        Minigolf.batch.draw(Minigolf.ballImg, ballPosX, ballPosY);
         Minigolf.batch.draw(Minigolf.holeImg, 1100, 375);
+        Minigolf.batch.draw(Minigolf.ballImg, ballPosX, ballPosY);
 
         // where to render power meter
         if (Minigolf.dragging) {

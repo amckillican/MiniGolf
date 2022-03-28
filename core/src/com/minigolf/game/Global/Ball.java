@@ -89,8 +89,12 @@ public class Ball {
         return win;
     }
 
-    public void setWin(boolean win) {
-        this.win = win;
+    public void Win(int x, int y) {
+        win = true;
+        this.x = x;
+        this.y = y;
+        xVelocity = 0;
+        yVelocity = 0;
     }
 
     public int getShots() {
