@@ -1,4 +1,4 @@
-package com.Minigolf.game.Constructors;
+package com.Minigolf.game.Global;
 
 public class Ball {
     private int x;

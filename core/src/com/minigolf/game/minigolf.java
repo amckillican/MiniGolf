@@ -1,6 +1,6 @@
 package com.Minigolf.game;
 
-import com.Minigolf.game.Constructors.Ball;
+import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Screens.help;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -30,10 +30,10 @@ public class Minigolf extends Game implements InputProcessor {
 
 	// textures
 	public Texture bg;
-	public Texture powerMeterBG;
-	public Texture powerMeterFG;
-	public Texture powerMeterOverlay;
-	public Texture ballImg;
+	public static Texture powerMeterBG;
+	public static Texture powerMeterFG;
+	public static Texture powerMeterOverlay;
+	public static Texture ballImg;
 
 	// variables
 	public static int mouseDownX = 0;
@@ -81,6 +81,7 @@ public class Minigolf extends Game implements InputProcessor {
 		powerMeterFG = new Texture("gfx/powermeter_fg.png");
 		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
 		ballImg = new Texture("gfx/ball.png");
+
 	}
 
 	@Override
