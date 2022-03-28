@@ -12,6 +12,12 @@ public class Gameplay {
     public static int ballPosX;
     public static int ballPosY;
     public static int powerLevel;
+    public static int pointPosX;
+    public static int pointPosY;
+    public static int sideA;
+    public static int sideB;
+    public static float pointAngle;
+    public static String shotStr;
 
     public static void gameplay() {
         // set the camera to the tmx map
@@ -42,28 +48,28 @@ public class Gameplay {
                 Minigolf.dragging = false;
             }
         }
-        
+
         // getting ball position
         ballPosX = Minigolf.ball.getX();
         ballPosY = Minigolf.ball.getY();
-        
+
         // if ball enters hole trigger win sequence
-        if(ballPosX >= 1085 && ballPosX <= 1115){
-            if(ballPosY >= 375 && ballPosY <= 405){
+        if (ballPosX >= 1085 && ballPosX <= 1115) {
+            if (ballPosY >= 375 && ballPosY <= 405) {
                 Minigolf.ball.Win(1100, 375);
             }
         }
 
         // string for displaying number of strokes
-        String shotStr = "STROKE: " + Minigolf.ball.getShots();
+        shotStr = "STROKE: " + Minigolf.ball.getShots();
 
         Minigolf.batch.begin();
-        
+
         // displaying number of strokes
         Minigolf.font.setColor(1, 1, 1, 1);
         Minigolf.font.getData().setScale(1);
         Minigolf.font.draw(Minigolf.batch, shotStr, 10, 750);
-        
+
         // drawing ball and hole
         Minigolf.batch.draw(Minigolf.holeImg, 1100, 375);
         Minigolf.batch.draw(Minigolf.ballImg, ballPosX, ballPosY);
@@ -97,25 +103,45 @@ public class Gameplay {
                 }
             }
 
-            // pythagorean theorem
-            int sideA = (Gdx.input.getX() - Minigolf.ball.getX()) / 2;
-            int sideB = ((765 - Gdx.input.getY()) - Minigolf.ball.getY()) / 2;
-            powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+            try {
+                // pythagorean theorem
+                sideA = (Gdx.input.getX() - Minigolf.ball.getX());
+                sideB = ((765 - Gdx.input.getY()) - Minigolf.ball.getY());
+                powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+                // calculating the angle for the pointer
+                pointAngle = (float) (Math.atan(Math.abs(sideA) / Math.abs(sideB)) * (180 / Math.PI));
+            } catch (Exception e) {
+
+            }
 
             // maximum power level
             if (powerLevel >= 64) {
                 powerLevel = 64;
             }
 
+            if (sideA > 0 && sideB > 0) {
+                pointAngle = -pointAngle;
+            } else if (sideA < 0 && sideB < 0) {
+                pointAngle += 90;
+            } else if (sideA > 0 && sideB < 0) {
+                pointAngle = -pointAngle - 180;
+            }
+
             // croping power meter
             region = new TextureRegion(Minigolf.powerMeterFG, 0, 0, 16, powerLevel);
 
-            // drawing power meter
+            // drawing power and arrow
+            Minigolf.batch.draw(Minigolf.pointImgRegion, ballPosX, ballPosY, 0f, 0f, 16f, 64f, 1f, 1f, pointAngle);
             Minigolf.batch.draw(Minigolf.powerMeterBG, powerPosX, powerPosY);
             Minigolf.batch.draw(region, powerPosX, powerPosY);
             Minigolf.batch.draw(Minigolf.powerMeterOverlay, powerPosX, powerPosY);
         }
-        
+
+        try {
+            System.out.println("x: " + sideA + " y: " + sideB + " a: " + pointAngle);
+        } catch (Exception e) {
+        }
+
         Minigolf.batch.end();
     }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -35,6 +36,8 @@ public class Minigolf extends Game implements InputProcessor {
 	public static Texture powerMeterOverlay;
 	public static Texture ballImg;
 	public static Texture holeImg;
+	public static Texture pointImg;
+	public static TextureRegion pointImgRegion;
 
 	// variables
 	public static int mouseDownX = 0;
@@ -83,6 +86,8 @@ public class Minigolf extends Game implements InputProcessor {
 		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
 		ballImg = new Texture("gfx/ball.png");
 		holeImg = new Texture("gfx/hole.png");
+		pointImg = new Texture("gfx/point.png");
+		pointImgRegion = new TextureRegion(pointImg, 16, 64);
 	}
 
 	@Override
