@@ -16,7 +16,7 @@ public class Gameplay {
     public static int pointPosY;
     public static int sideA;
     public static int sideB;
-    public static float pointAngle;
+    public static float pointAngle = 0;
     public static String shotStr;
 
     public static void gameplay() {
@@ -111,9 +111,7 @@ public class Gameplay {
                 // calculating the angle for the pointer
                 pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));
                 System.out.println(pointAngle);
-            } catch (Exception e) {
-
-            }
+            } catch (Exception e) {}
 
             // maximum power level
             if (powerLevel >= 64) {
@@ -124,7 +122,7 @@ public class Gameplay {
             region = new TextureRegion(Minigolf.powerMeterFG, 0, 0, 16, powerLevel);
 
             // drawing power and arrow
-            Minigolf.batch.draw(Minigolf.pointImgRegion, ballPosX + 8, ballPosY + 8, 0f, 0f, 16f, 64f, 1f, 1f, pointAngle);
+            Minigolf.batch.draw(Minigolf.pointImgRegion, ballPosX, ballPosY, 8f, 8f, 16f, 64f, 1f, 1f, pointAngle);
             Minigolf.batch.draw(Minigolf.powerMeterBG, powerPosX, powerPosY);
             Minigolf.batch.draw(region, powerPosX, powerPosY);
             Minigolf.batch.draw(Minigolf.powerMeterOverlay, powerPosX, powerPosY);
