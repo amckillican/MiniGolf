@@ -109,7 +109,8 @@ public class Gameplay {
                 sideB = ((765 - Gdx.input.getY()) - Minigolf.ball.getY());
                 powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
                 // calculating the angle for the pointer
-                pointAngle = (float) (Math.atan(Math.abs(sideA) / Math.abs(sideB)) * (180 / Math.PI));
+                pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));
+                System.out.println(pointAngle);
             } catch (Exception e) {
 
             }
@@ -119,27 +120,14 @@ public class Gameplay {
                 powerLevel = 64;
             }
 
-            if (sideA > 0 && sideB > 0) {
-                pointAngle = -pointAngle;
-            } else if (sideA < 0 && sideB < 0) {
-                pointAngle += 90;
-            } else if (sideA > 0 && sideB < 0) {
-                pointAngle = -pointAngle - 180;
-            }
-
             // croping power meter
             region = new TextureRegion(Minigolf.powerMeterFG, 0, 0, 16, powerLevel);
 
             // drawing power and arrow
-            Minigolf.batch.draw(Minigolf.pointImgRegion, ballPosX, ballPosY, 0f, 0f, 16f, 64f, 1f, 1f, pointAngle);
+            Minigolf.batch.draw(Minigolf.pointImgRegion, ballPosX + 8, ballPosY + 8, 0f, 0f, 16f, 64f, 1f, 1f, pointAngle);
             Minigolf.batch.draw(Minigolf.powerMeterBG, powerPosX, powerPosY);
             Minigolf.batch.draw(region, powerPosX, powerPosY);
             Minigolf.batch.draw(Minigolf.powerMeterOverlay, powerPosX, powerPosY);
-        }
-
-        try {
-            System.out.println("x: " + sideA + " y: " + sideB + " a: " + pointAngle);
-        } catch (Exception e) {
         }
 
         Minigolf.batch.end();

@@ -25,7 +25,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static OrthographicCamera camera;
 	public static TiledMapRenderer tiledMapRenderer;
 	public TiledMap tiledMap;
-	public ShapeRenderer shapeRenderer;
+	public static ShapeRenderer shapeRenderer;
 	public static SpriteBatch batch;
 	public static BitmapFont font;
 
@@ -37,7 +37,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static Texture ballImg;
 	public static Texture holeImg;
 	public static Texture pointImg;
-	public static TextureRegion pointImgRegion;
+    public static TextureRegion pointImgRegion;
 
 	// variables
 	public static int mouseDownX = 0;
