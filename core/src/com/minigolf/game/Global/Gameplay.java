@@ -110,7 +110,6 @@ public class Gameplay {
                 powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
                 // calculating the angle for the pointer
                 pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));
-                System.out.println(pointAngle);
             } catch (Exception e) {}
 
             // maximum power level
