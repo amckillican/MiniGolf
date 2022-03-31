@@ -8,7 +8,8 @@ public class Ball {
     private float scale;
     private int size;
     private int friction;
-    private int maxSpeed;
+    private int xmaxSpeed;
+    private int ymaxSpeed;
     private int shots;
     private boolean win = false;
 
@@ -20,7 +21,8 @@ public class Ball {
         scale = 1;
         size = 16;
         friction = 2;
-        maxSpeed = 80;
+        xmaxSpeed = 64;
+        ymaxSpeed = 36;
         shots = 0;
         win = false;
     }
@@ -78,11 +80,11 @@ public class Ball {
     }
 
     public int getMaxSpeed() {
-        return maxSpeed;
+        return xmaxSpeed;
     }
 
     public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
+        this.xmaxSpeed = maxSpeed;
     }
 
     public boolean getWin() {
@@ -113,20 +115,21 @@ public class Ball {
         scale = 1;
         size = 16;
         friction = 2;
-        maxSpeed = 80;
+        xmaxSpeed = 64;
+        ymaxSpeed = 36;
         shots = 0;
         win = false;
     }
 
     public void updatePos() {
-        if (xVelocity > maxSpeed)
-            xVelocity = maxSpeed;
-        if (yVelocity > maxSpeed)
-            yVelocity = maxSpeed;
-        if (xVelocity < -maxSpeed)
-            xVelocity = -maxSpeed;
-        if (yVelocity < -maxSpeed)
-            yVelocity = -maxSpeed;
+        if (xVelocity > xmaxSpeed)
+            xVelocity = xmaxSpeed;
+        if (yVelocity > ymaxSpeed)
+            yVelocity = ymaxSpeed;
+        if (xVelocity < -xmaxSpeed)
+            xVelocity = -xmaxSpeed;
+        if (yVelocity < -ymaxSpeed)
+            yVelocity = -ymaxSpeed;
 
         x += xVelocity;
         y += yVelocity;

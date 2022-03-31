@@ -3,6 +3,7 @@ package com.Minigolf.game.Global;
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 
 public class Gameplay {
     public static TextureRegion region;
@@ -19,10 +20,10 @@ public class Gameplay {
     public static float pointAngle = 0;
     public static String shotStr;
 
-    public static void gameplay() {
+    public static void gameplay(TiledMapRenderer tiledMapRenderer) {
         // set the camera to the tmx map
-        Minigolf.tiledMapRenderer.setView(Minigolf.camera);
-        Minigolf.tiledMapRenderer.render();
+        tiledMapRenderer.setView(Minigolf.camera);
+        tiledMapRenderer.render();
 
         // ball physics
         Minigolf.ball.updatePos();
@@ -105,8 +106,8 @@ public class Gameplay {
 
             try {
                 // pythagorean theorem
-                sideA = (Gdx.input.getX() - Minigolf.ball.getX());
-                sideB = ((765 - Gdx.input.getY()) - Minigolf.ball.getY());
+                sideA = (Gdx.input.getX() - (Minigolf.ball.getX() + 8));
+                sideB = ((765 - Gdx.input.getY()) - (Minigolf.ball.getY() + 8));
                 powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
                 // calculating the angle for the pointer
                 pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));

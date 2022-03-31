@@ -13,18 +13,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Minigolf extends Game implements InputProcessor {
 	// static objects
 	public static Ball ball = new Ball(205, 375);
 	public static OrthographicCamera camera;
-	public static TiledMapRenderer tiledMapRenderer;
-	public TiledMap tiledMap;
 	public static ShapeRenderer shapeRenderer;
 	public static SpriteBatch batch;
 	public static BitmapFont font;
@@ -74,10 +68,6 @@ public class Minigolf extends Game implements InputProcessor {
 		// used for taking keyboard/mouse inputs
 		Gdx.input.setInputProcessor(this);
 
-		// used for rendering the tile maps
-		tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
 		// textures
 		batch = new SpriteBatch();
 		bg = new Texture("gfx/Tiled/bg.png");
@@ -98,7 +88,7 @@ public class Minigolf extends Game implements InputProcessor {
 		bg.dispose();
 		font.dispose();
 		shapeRenderer.dispose();
-		tiledMap.dispose();
+		help.tiledMap.dispose();
 	}
 
 	@Override
