@@ -79,14 +79,6 @@ public class Ball {
         this.friction = friction;
     }
 
-    public int getMaxSpeed() {
-        return xmaxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.xmaxSpeed = maxSpeed;
-    }
-
     public boolean getWin() {
         return win;
     }

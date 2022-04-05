@@ -128,12 +128,12 @@ public class Minigolf extends Game implements InputProcessor {
 			shapeRenderer.rect(772, 252, 281, 100);
 			shapeRenderer.rect(772, 62, 281, 100);
 			shapeRenderer.end();
-
+			
 			// transparancy
 			Gdx.gl.glDisable(GL30.GL_BLEND);
-
+			
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
+			
 			// hovering 9-hole button
 			if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {

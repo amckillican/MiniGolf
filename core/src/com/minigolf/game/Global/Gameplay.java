@@ -2,8 +2,10 @@ package com.Minigolf.game.Global;
 
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Gameplay {
     public static TextureRegion region;
@@ -53,13 +55,6 @@ public class Gameplay {
         // getting ball position
         ballPosX = Minigolf.ball.getX();
         ballPosY = Minigolf.ball.getY();
-
-        // if ball enters hole trigger win sequence
-        if (ballPosX >= 1085 && ballPosX <= 1115) {
-            if (ballPosY >= 375 && ballPosY <= 405) {
-                Minigolf.ball.Win(1100, 375);
-            }
-        }
 
         // string for displaying number of strokes
         shotStr = "STROKE: " + Minigolf.ball.getShots();
@@ -111,7 +106,8 @@ public class Gameplay {
                 powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
                 // calculating the angle for the pointer
                 pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
             // maximum power level
             if (powerLevel >= 64) {
@@ -129,5 +125,26 @@ public class Gameplay {
         }
 
         Minigolf.batch.end();
+
+        // if ball enters hole trigger win sequence
+        if (ballPosX >= 1085 && ballPosX <= 1115) {
+            if (ballPosY >= 375 && ballPosY <= 410) {
+                Minigolf.startFrame = Minigolf.currentFrame;
+                Minigolf.ball.Win(1100, 375);
+
+                // transparancy
+                Gdx.gl.glEnable(GL30.GL_BLEND);
+                Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
+
+                // drawing rectangle
+                Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                Minigolf.shapeRenderer.setColor(0, 0, 0, (float) 0.75);
+                Minigolf.shapeRenderer.rect(0, 0, 1360, 765);
+                Minigolf.shapeRenderer.end();
+
+                // transparancy
+                Gdx.gl.glDisable(GL30.GL_BLEND);
+            }
+        }
     }
 }

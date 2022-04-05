@@ -9,10 +9,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class help implements Screen {
-    // create screen
     public Minigolf game;
-    public static TiledMap tiledMap;
-    public static TiledMapRenderer tiledMapRenderer;
+    public static TiledMap tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
+    public static TiledMapRenderer tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
     // create screen
     public help(Minigolf game) {
@@ -22,8 +21,6 @@ public class help implements Screen {
     @Override
     public void render(float delta) {
         // method for physics, ui, and other things that will be used in other screens
-        tiledMap = new TmxMapLoader().load("gfx/Tiled/help.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         Gameplay.gameplay(tiledMapRenderer);
 
         // debugging
