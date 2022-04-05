@@ -103,11 +103,13 @@ public class Gameplay {
                 // pythagorean theorem
                 sideA = (Gdx.input.getX() - (Minigolf.ball.getX() + 8));
                 sideB = ((765 - Gdx.input.getY()) - (Minigolf.ball.getY() + 8));
-                powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+                powerLevel = (int) Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)) / 4;
                 // calculating the angle for the pointer
                 pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));
             } catch (Exception e) {
             }
+
+            System.out.println(powerLevel);
 
             // maximum power level
             if (powerLevel >= 64) {
