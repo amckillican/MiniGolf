@@ -162,6 +162,12 @@ public class Minigolf extends Game implements InputProcessor {
 			if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 					shapeRenderer.rect(772, 252, 281, 100);
+					if (Gdx.input.isTouched()) {
+						gamestate = "Endless";
+						startFrame = currentFrame;
+						ball.setBall(205, 375);
+						// this.setScreen(new Endless(this));
+					}
 				}
 			}
 
