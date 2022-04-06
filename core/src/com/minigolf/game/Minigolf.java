@@ -2,6 +2,7 @@ package com.Minigolf.game;
 
 import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Screens.help;
+import com.Minigolf.game.Screens.Endless;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -166,7 +167,7 @@ public class Minigolf extends Game implements InputProcessor {
 						gamestate = "Endless";
 						startFrame = currentFrame;
 						ball.setBall(205, 375);
-						// this.setScreen(new Endless(this));
+						this.setScreen(new Endless(this));
 					}
 				}
 			}

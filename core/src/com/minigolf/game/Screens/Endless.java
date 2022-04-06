@@ -6,9 +6,9 @@ import com.badlogic.gdx.Screen;
 
 public class Endless implements Screen {
     public Minigolf game;
-    
+    public static int level = 1;
     // create screen
-    public help(Minigolf game) {
+    public Endless(Minigolf game) {
         this.game = game;
     }
 
