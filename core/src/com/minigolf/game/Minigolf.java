@@ -24,7 +24,9 @@ public class Minigolf extends Game implements InputProcessor {
 	public static BitmapFont font;
 
 	// textures
-	public Texture bg;
+	public static Texture bg;
+	public static Texture lightTileIMG;
+	public static Texture darkTileIMG;
 	public static Texture powerMeterBG;
 	public static Texture powerMeterFG;
 	public static Texture powerMeterOverlay;
@@ -70,7 +72,9 @@ public class Minigolf extends Game implements InputProcessor {
 
 		// textures
 		batch = new SpriteBatch();
-		bg = new Texture("gfx/Tiled/bg.png");
+		bg = new Texture("gfx/bg.png");
+		lightTileIMG = new Texture("gfx/lighttile.png");
+		darkTileIMG = new Texture("gfx/darktile.png");
 		powerMeterBG = new Texture("gfx/powermeter_bg.png");
 		powerMeterFG = new Texture("gfx/powermeter_fg.png");
 		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
@@ -88,7 +92,6 @@ public class Minigolf extends Game implements InputProcessor {
 		bg.dispose();
 		font.dispose();
 		shapeRenderer.dispose();
-		help.tiledMap.dispose();
 	}
 
 	@Override

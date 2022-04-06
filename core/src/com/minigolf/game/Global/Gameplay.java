@@ -4,7 +4,6 @@ import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Gameplay {
@@ -22,10 +21,11 @@ public class Gameplay {
     public static float pointAngle = 0;
     public static String shotStr;
 
-    public static void gameplay(TiledMapRenderer tiledMapRenderer) {
+    public static void gameplay() {
         // set the camera to the tmx map
-        tiledMapRenderer.setView(Minigolf.camera);
-        tiledMapRenderer.render();
+        Minigolf.batch.begin();
+        Minigolf.batch.draw(Minigolf.bg, 0, 0);
+        Minigolf.batch.end();
 
         // ball physics
         Minigolf.ball.updatePos();
@@ -108,8 +108,6 @@ public class Gameplay {
                 pointAngle = (float) -(Math.atan2(-sideA, -sideB) * (180 / Math.PI));
             } catch (Exception e) {
             }
-
-            System.out.println(powerLevel);
 
             // maximum power level
             if (powerLevel >= 64) {
