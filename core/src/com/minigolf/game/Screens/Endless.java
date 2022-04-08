@@ -12,6 +12,7 @@ public class Endless implements Screen {
     public static int level = 1000;
     public static ShapeRenderer shapeRenderer;
     public static ShapeRenderer batch;
+    ArrayList<Integer>nums = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
     Random rand = new Random();
 
@@ -28,15 +29,14 @@ public class Endless implements Screen {
         // initializing shape renderer
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
-        if (Minigolf.currentFrame == Minigolf.startFrame){
-            for(int i = 0; i < Math.ceil(level/2); i++){
-                int x = rand.nextInt(1361);
-                int y = rand.nextInt(766);
+        //array list? i+2 so you can use i for index placment
+            for(int i = 0; i < level; i+=2){
+                nums.add(rand.nextInt(1361));
+                nums.add(rand.nextInt(766));
                 Minigolf.batch.begin();
-                Minigolf.batch.draw(darkTileIMG, x, y);
+                Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i+1));
                 Minigolf.batch.end();
-            }   
-        }
+            } 
         
 
         // debugging
