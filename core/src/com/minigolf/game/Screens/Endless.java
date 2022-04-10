@@ -54,12 +54,6 @@ public class Endless implements Screen {
             level=1;
             System.out.println(level);
         }
-
-        // debugging
-        // System.out.print("x: " + Gameplay.ballPosX);
-        // System.out.println(" y: " + (765 - Gameplay.ballPosY));
-        // System.out.print(" xV: " + Minigolf.ball.getXVelocity());
-        // System.out.println(" yV: " + Minigolf.ball.getYVelocity());
     }
 
     @Override
