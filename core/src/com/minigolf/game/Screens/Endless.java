@@ -31,17 +31,18 @@ public class Endless implements Screen {
         // initializing shape renderer
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
-        //array list? i+2 so you can use i for index placment
+            //Based on the level, create random coordinates and place obsticals
             for(int i = 0; i < Math.pow(level*2,1.5); i+=2){
                 nums.add(rand.nextInt(1361));
                 nums.add(rand.nextInt(766));
-                for(int j = 0; j<=nums.size()-2; j+=2){
-                    if(nums.get((int)Math.pow(level*2,1.5)-1) - nums.get(j+1) > 50 && nums.get((int)Math.pow(level*2,1.5)-2) - nums.get(j) > 50){
+                //for(int j = 0; j<=nums.size()-2; j+=2){
+                    //if(nums.get((int)Math.pow(level*2,1.5)-1) - nums.get(j+1) > 50 && nums.get((int)Math.pow(level*2,1.5)-2) - nums.get(j) > 50){
                         Minigolf.batch.begin();
                         Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i+1));
                         Minigolf.batch.end();
-                    }
-                }
+                    //}
+                
+                //}
             } 
         if(Gdx.input.isKeyPressed(Keys.SPACE)){
             level++;
