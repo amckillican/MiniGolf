@@ -12,11 +12,13 @@ import java.util.*;
 public class Endless implements Screen {
     public Minigolf game;
     public static int level = 1;
+    public static int change = 1;
     public static ShapeRenderer shapeRenderer;
     public static ShapeRenderer batch;
     ArrayList<Integer>nums = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
     Random rand = new Random();
+    public static int track = 0;
 
     
     // create screen
@@ -34,17 +36,31 @@ public class Endless implements Screen {
              
 
         //Based on the level, create random coordinates and place obsticals
-        for(int i = 0; i < Math.pow(level*2,1.5); i+=2){
-            nums.add(rand.nextInt(1361));
-            nums.add(rand.nextInt(766));
-            //for(int j = 0; j<=nums.size()-2; j+=2){
-                //if(nums.get((int)Math.pow(level*2,1.5)-1) - nums.get(j+1) > 50 && nums.get((int)Math.pow(level*2,1.5)-2) - nums.get(j) > 50){
-                    Minigolf.batch.begin();
-                    Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i+1));
-                    Minigolf.batch.end();
-                // }
-            // }
+        for(int i = 0; i < (int)Math.pow(level*2,1.25); i+=2){
+            int x = rand.nextInt(1361);
+            int y = rand.nextInt(766);
+            for(int j = 0; j<nums.size(); j+=2){
+                if(x - nums.get(j) > -30 && x - nums.get(j) < 30){
+                    if(y - nums.get(j+1) > -30 && y - nums.get(j+1) < 30){
+                        track++;
+                    }
+                }
+            }
+            //if(track==0){
+                nums.add(x);
+                nums.add(y);
+            //}
+            //else{
+            //    track = 0;
+            //}
+            Minigolf.batch.begin();
+            Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i+1));
+            Minigolf.batch.end();
         } 
+        if(change!=level){
+            nums.clear();
+            change = level;
+        }
         //if(level>?) - put in water trap
         //if(level>?) - put in sand trap
         //if(level>?) - put in trap trap
