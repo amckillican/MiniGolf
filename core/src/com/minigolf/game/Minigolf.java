@@ -1,10 +1,13 @@
 package com.Minigolf.game;
 
 import com.Minigolf.game.Global.Ball;
+import com.Minigolf.game.Screens.credits;
 import com.Minigolf.game.Screens.help;
+import com.Minigolf.game.Screens.leaderboard;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,6 +44,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static int mouseUpX = 0;
 	public static int mouseUpY = 0;
 	public String gamestate = "title";
+	public String gameScreen = "tutorial";
 	public static float currentFrame = 0;
 	public static float startFrame = 0;
 	public static boolean shoot = false;
@@ -126,10 +130,12 @@ public class Minigolf extends Game implements InputProcessor {
 			// drawing rectangle
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 			shapeRenderer.setColor(0, 0, 0, (float) 0.75);
-			shapeRenderer.rect(300, 252, 281, 100);
-			shapeRenderer.rect(300, 62, 281, 100);
-			shapeRenderer.rect(772, 252, 281, 100);
-			shapeRenderer.rect(772, 62, 281, 100);
+			shapeRenderer.rect(100, 252, 281, 100);
+			shapeRenderer.rect(100, 62, 281, 100);
+			shapeRenderer.rect(550, 252, 281, 100);
+			shapeRenderer.rect(550, 62, 281, 100);
+			shapeRenderer.rect(1000, 62, 281, 100);
+			shapeRenderer.rect(1000, 252, 281, 100);
 			shapeRenderer.end();
 			
 			// transparancy
@@ -138,16 +144,16 @@ public class Minigolf extends Game implements InputProcessor {
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 			
 			// hovering 9-hole button
-			if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
+			if (Gdx.input.getX() >= 100 && Gdx.input.getX() <= 385) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
-					shapeRenderer.rect(300, 252, 281, 100);
+					shapeRenderer.rect(100, 252, 281, 100);
 				}
 			}
 
 			// hovering help button
-			if (Gdx.input.getX() >= 300 && Gdx.input.getX() <= 582) {
+			if (Gdx.input.getX() >= 100 && Gdx.input.getX() <= 385) {
 				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
-					shapeRenderer.rect(300, 62, 281, 100);
+					shapeRenderer.rect(101, 62, 281, 100);
 
 					if (Gdx.input.isTouched()) {
 						gamestate = "help";
@@ -159,21 +165,46 @@ public class Minigolf extends Game implements InputProcessor {
 			}
 
 			// hovering endless button
-			if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
+			if (Gdx.input.getX() >= 549 && Gdx.input.getX() <= 835) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
-					shapeRenderer.rect(772, 252, 281, 100);
+					shapeRenderer.rect(549, 252, 281, 100);
 				}
 			}
 
 			// hovering exit button
-			if (Gdx.input.getX() >= 772 && Gdx.input.getX() <= 953) {
+			if (Gdx.input.getX() >= 550 && Gdx.input.getX() <= 835) {
 				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
-					shapeRenderer.rect(772, 62, 281, 100);
+					shapeRenderer.rect(550, 62, 281, 100);
 					if (Gdx.input.isTouched()) {
 						Gdx.app.exit();
 					}
 				}
 			}
+
+			//hovering leaderboard button
+			if (Gdx.input.getX() >= 1000 && Gdx.input.getX() <= 1285) {
+				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
+					shapeRenderer.rect(1000, 252, 281, 100);
+					if (Gdx.input.isTouched()) {
+						gamestate = "leaderboard";
+						startFrame = currentFrame;
+						this.setScreen(new leaderboard(this));
+					}
+				}
+			}
+
+			//hovering acknowledgement and music list button
+			if (Gdx.input.getX() >= 1000 && Gdx.input.getX() <= 1285) {
+				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
+					shapeRenderer.rect(1000, 62, 281, 100);
+					if (Gdx.input.isTouched()) {
+						gamestate = "credits";
+						startFrame = currentFrame;
+						this.setScreen((Screen) new credits(this));
+					}
+				}
+			}
+			
 
 			shapeRenderer.end();
 
@@ -181,13 +212,18 @@ public class Minigolf extends Game implements InputProcessor {
 			batch.begin();
 			font.setColor(1, 1, 1, 1);
 			font.getData().setScale(2);
-			font.draw(batch, "NINE HOLE", 325, 327);
-			font.draw(batch, "HELP", 385, 133);
-			font.draw(batch, "ENDLESS", 810, 327);
-			font.draw(batch, "EXIT", 865, 133);
+			font.draw(batch, "NINE HOLE", 121, 327);
+			font.draw(batch, "HELP", 180, 133);
+			font.draw(batch, "ENDLESS", 593, 327);
+			font.draw(batch, "EXIT", 642, 133);
+			font.getData().setScale(1);
+			font.draw(batch, "LEADERBOARD",1061,317);
+			font.draw(batch, "CREDITS+MUSIC LIST",1020,123);
 			font.getData().setScale(1);
 			font.setColor(0, 0, 0, 1);
 			font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
+			font.getData().setScale(4);
+			font.draw(batch, "Putting Through Time", 150, 550);
 			batch.end();
 
 			// exiting the application
