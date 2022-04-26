@@ -3,7 +3,11 @@ package com.Minigolf.game;
 import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Screens.credits;
 import com.Minigolf.game.Screens.help;
+<<<<<<< HEAD
 import com.Minigolf.game.Screens.leaderboard;
+=======
+import com.Minigolf.game.Screens.Endless;
+>>>>>>> 3e873a3bdb5dd940b1c6291d96e91b6b90aba4c3
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -167,7 +171,17 @@ public class Minigolf extends Game implements InputProcessor {
 			// hovering endless button
 			if (Gdx.input.getX() >= 549 && Gdx.input.getX() <= 835) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
+<<<<<<< HEAD
 					shapeRenderer.rect(549, 252, 281, 100);
+=======
+					shapeRenderer.rect(772, 252, 281, 100);
+					if (Gdx.input.isTouched()) {
+						gamestate = "Endless";
+						startFrame = currentFrame;
+						ball.setBall(205, 375);
+						this.setScreen(new Endless(this));
+					}
+>>>>>>> 3e873a3bdb5dd940b1c6291d96e91b6b90aba4c3
 				}
 			}
 
