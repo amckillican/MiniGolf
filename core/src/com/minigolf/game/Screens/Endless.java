@@ -51,8 +51,13 @@ public class Endless implements Screen {
                 track = 0;
             }
             Minigolf.batch.begin();
-            Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
-            Minigolf.batch.end();
+            try{
+                Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
+            }
+            catch(Exception e){
+                
+            }
+            Minigolf.batch.end();  
         }
         if (change != level) {
             // Collections.shuffle(nums);
