@@ -25,30 +25,50 @@ public class leaderboard implements Screen {
         
         Gdx.gl.glEnable(GL30.GL_BLEND);
         Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
-
-        Minigolf.batch.begin();
-        Minigolf.font.setColor(0, 0,0, 1);
-		Minigolf.font.getData().setScale(2);
-		Minigolf.font.draw(Minigolf.batch, "EXIT", 1000, 100);
-        Minigolf.batch.end();
         
+        Gdx.gl.glDisable(GL30.GL_BLEND);
+
         Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Minigolf.shapeRenderer.setColor(1, 1,1, 1);
-        Minigolf.shapeRenderer.rect(1000, 62, 281, 100);
+        Minigolf.shapeRenderer.setColor(0, 0,1, 1);
+        Minigolf.shapeRenderer.rect(1000, 50, 281, 100);
+        Minigolf.shapeRenderer.end();
+
+        Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Minigolf.shapeRenderer.setColor(0, 0,1, 1);
+        Minigolf.shapeRenderer.rect(100, 50, 281, 100);
         Minigolf.shapeRenderer.end();
     
-        Gdx.gl.glDisable(GL30.GL_BLEND);
-			
+        
 		Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        if (Gdx.input.getX() >= 550 && Gdx.input.getX() <= 835) {
-            if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
-                Minigolf.shapeRenderer.rect(550, 62, 281, 100);
+        
+        if (Gdx.input.getX() >= 1000 && Gdx.input.getX() <= 1285) {
+            if (Gdx.input.getY() >= 595 && Gdx.input.getY() <= 703) {
+                Minigolf.shapeRenderer.rect(990, 45, 300, 110);
                 if (Gdx.input.isTouched()) {
                     Gdx.app.exit();
                 }
             }
         }
+
+        Gdx.gl.glDisable(GL30.GL_BLEND);
+        if (Gdx.input.getX() >= 100 && Gdx.input.getX() <= 385) {
+            if (Gdx.input.getY() >= 595 && Gdx.input.getY() <= 703) {
+                Minigolf.shapeRenderer.rect(90, 45, 300, 110);
+                if (Gdx.input.isTouched()) {
+                    Minigolf.gamestate = "title";
+					Minigolf.startFrame = Minigolf.currentFrame;
+				
+                }
+            }
+        }
+        Gdx.gl.glDisable(GL30.GL_BLEND);
         Minigolf.shapeRenderer.end();
+
+        Minigolf.batch.begin();
+        Minigolf.font.setColor(1, 1,1, 1);
+		Minigolf.font.getData().setScale(2);
+		Minigolf.font.draw(Minigolf.batch, "EXIT", 1090 , 120);
+        Minigolf.batch.end();
     }
     @Override
     public void show() {

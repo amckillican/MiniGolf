@@ -1,13 +1,12 @@
 package com.Minigolf.game.Screens;
 
 import com.Minigolf.game.Minigolf;
-import com.badlogic.gdx.Gdx;
+
 //import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 public class credits implements Screen {
     
