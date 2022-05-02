@@ -47,8 +47,9 @@ public class Endless implements Screen {
             if (track == 0) {
                 nums.add(x);
                 nums.add(y);
-            } else
+            } else{
                 track = 0;
+            }
             Minigolf.batch.begin();
             Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
             Minigolf.batch.end();
