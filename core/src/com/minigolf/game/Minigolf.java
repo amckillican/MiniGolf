@@ -238,7 +238,7 @@ public class Minigolf extends Game implements InputProcessor {
 			font.setColor(0, 0, 0, 1);
 			font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
 			font.getData().setScale(4);
-			font.draw(batch, "Putting Through Time", 150, 550);
+			font.draw(batch, "Puttin' Through Time", 170, 550);
 			batch.end();
 
 			// exiting the application

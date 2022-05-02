@@ -9,16 +9,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.*;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 public class Endless implements Screen {
     public Minigolf game;
     public static int level = 1;
     public static int change = 1;
     public static ShapeRenderer shapeRenderer;
-    public static ShapeRenderer batch;
+    public static Batch batch;
     ArrayList<Integer> nums = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
     Random rand = new Random();
     public static int track = 0;
+    public static BitmapFont font;
 
     // create screen
     public Endless(Minigolf game) {
@@ -55,7 +59,7 @@ public class Endless implements Screen {
                 Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
             }
             catch(Exception e){
-                
+
             }
             Minigolf.batch.end();  
         }
@@ -75,6 +79,11 @@ public class Endless implements Screen {
             level = 1;
             System.out.println(level);
         }
+        Minigolf.batch.begin();
+		Minigolf.font.setColor(1, 1, 1, 1);
+		Minigolf.font.getData().setScale(1);
+		Minigolf.font.draw(Minigolf.batch, "Level: " + level, 10, 720);
+        Minigolf.batch.end();
     }
 
     @Override
