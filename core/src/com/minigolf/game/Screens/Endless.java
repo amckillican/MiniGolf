@@ -16,13 +16,21 @@ public class Endless implements Screen {
     public Minigolf game;
     public static int level = 1;
     public static int change = 1;
+    public static boolean start = true;
     public static ShapeRenderer shapeRenderer;
     public static Batch batch;
     ArrayList<Integer> nums = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
+    Texture sand1 = new Texture("gfx/Sand1.png");
+    Texture sand2 = new Texture("gfx/Sand2.png");
+    Texture sand3 = new Texture("gfx/Sand3.png");
     Random rand = new Random();
     public static int track = 0;
     public static BitmapFont font;
+    public static int sand = 0;
+    public static int sandx = 0;
+    public static int sandy = 0;
+
 
     // create screen
     public Endless(Minigolf game) {
@@ -51,22 +59,37 @@ public class Endless implements Screen {
             if (track == 0) {
                 nums.add(x);
                 nums.add(y);
-            } else{
+            } else {
                 track = 0;
             }
             Minigolf.batch.begin();
-            try{
-                Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
+            if (start) {
+                sandx = rand.nextInt(400);
+                sandy = rand.nextInt(766);
+                sand = rand.nextInt(3) + 1;
+                start = false;
             }
-            catch(Exception e){
+            if(sand==1){
+                Minigolf.batch.draw(sand1, sandx, sandy);
+            }
+            if(sand==2){
+                Minigolf.batch.draw(sand2, sandx, sandy);
+            }
+            if(sand==3){
+                Minigolf.batch.draw(sand3, sandx, sandy);
+            }
+            try {
+                Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
+            } catch (Exception e) {
 
             }
-            Minigolf.batch.end();  
+            Minigolf.batch.end();
         }
         if (change != level) {
             // Collections.shuffle(nums);
             nums.clear();
             change = level;
+            start = true;
         }
         // if(level>?) - put in water trap
         // if(level>?) - put in sand trap
@@ -80,9 +103,9 @@ public class Endless implements Screen {
             System.out.println(level);
         }
         Minigolf.batch.begin();
-		Minigolf.font.setColor(1, 1, 1, 1);
-		Minigolf.font.getData().setScale(1);
-		Minigolf.font.draw(Minigolf.batch, "Level: " + level, 10, 720);
+        Minigolf.font.setColor(1, 1, 1, 1);
+        Minigolf.font.getData().setScale(1);
+        Minigolf.font.draw(Minigolf.batch, "Level: " + level, 10, 720);
         Minigolf.batch.end();
     }
 
