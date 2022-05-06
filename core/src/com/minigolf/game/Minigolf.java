@@ -38,6 +38,9 @@ public class Minigolf extends Game implements InputProcessor {
 	public static Texture ballImg;
 	public static Texture holeImg;
 	public static Texture pointImg;
+	public static Texture helpbgImg;
+	public static Texture darkLongImg;
+	public static Texture lightLongImg;
     public static TextureRegion pointImgRegion;
 
 	// variables
@@ -87,6 +90,9 @@ public class Minigolf extends Game implements InputProcessor {
 		ballImg = new Texture("gfx/ball.png");
 		holeImg = new Texture("gfx/hole.png");
 		pointImg = new Texture("gfx/point.png");
+		darkLongImg = new Texture("gfx/help/darklong.png");
+		lightLongImg = new Texture("gfx/help/lightlong.png");
+		helpbgImg = new Texture("gfx/help/helpbg.png");
 		pointImgRegion = new TextureRegion(pointImg, 16, 64);
 	}
 
