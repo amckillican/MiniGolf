@@ -81,7 +81,6 @@ public class Endless implements Screen {
             try {
                 Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
             } catch (Exception e) {
-
             }
             Minigolf.batch.end();
         }
