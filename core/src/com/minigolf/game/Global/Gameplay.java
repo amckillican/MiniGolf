@@ -2,9 +2,7 @@ package com.Minigolf.game.Global;
 
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Gameplay {
     public static TextureRegion region;
@@ -22,11 +20,6 @@ public class Gameplay {
     public static String shotStr;
 
     public static void gameplay() {
-        // set the camera to the tmx map
-        Minigolf.batch.begin();
-        Minigolf.batch.draw(Minigolf.bg, 0, 0);
-        Minigolf.batch.end();
-
         // ball physics
         Minigolf.ball.updatePos();
         Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -125,26 +118,5 @@ public class Gameplay {
         }
 
         Minigolf.batch.end();
-
-        // if ball enters hole trigger win sequence
-        if (ballPosX >= 1085 && ballPosX <= 1115) {
-            if (ballPosY >= 375 && ballPosY <= 410) {
-                Minigolf.startFrame = Minigolf.currentFrame;
-                Minigolf.ball.Win(1100, 375);
-
-                // transparancy
-                Gdx.gl.glEnable(GL30.GL_BLEND);
-                Gdx.gl.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
-
-                // drawing rectangle
-                Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                Minigolf.shapeRenderer.setColor(0, 0, 0, (float) 0.75);
-                Minigolf.shapeRenderer.rect(0, 0, 1360, 765);
-                Minigolf.shapeRenderer.end();
-
-                // transparancy
-                Gdx.gl.glDisable(GL30.GL_BLEND);
-            }
-        }
     }
 }
