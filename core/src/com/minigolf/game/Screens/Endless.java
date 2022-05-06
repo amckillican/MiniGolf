@@ -24,7 +24,7 @@ public class Endless implements Screen {
     Texture sand1 = new Texture("gfx/Sand1.png");
     Texture sand2 = new Texture("gfx/Sand2.png");
     Texture sand3 = new Texture("gfx/Sand3.png");
-    Texture BenFace = new Texture("gfx/background.jpg");
+    Texture BenFace = new Texture("gfx/backround.jpg");
     Random rand = new Random();
     public static int track = 0;
     public static BitmapFont font;
@@ -42,7 +42,7 @@ public class Endless implements Screen {
     public void render(float delta) {
         // Set backround
         Minigolf.batch.begin();
-        Minigolf.batch.draw(Minigolf.bg, 0, 0);
+        Minigolf.batch.draw(BenFace, 0, 0);
         Minigolf.batch.end();
         // method for physics, ui, and other things that will be used in other screens
         Gameplay.gameplay();
