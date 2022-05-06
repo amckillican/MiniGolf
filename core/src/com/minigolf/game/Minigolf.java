@@ -4,7 +4,6 @@ import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Screens.credits;
 import com.Minigolf.game.Screens.help;
 import com.Minigolf.game.Screens.leaderboard;
-
 import com.Minigolf.game.Screens.Endless;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

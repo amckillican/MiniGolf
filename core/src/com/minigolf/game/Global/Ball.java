@@ -3,10 +3,10 @@ package com.Minigolf.game.Global;
 public class Ball {
     private int x;
     private int y;
-    private int xVelocity;
-    private int yVelocity;
-    private float scale;
+    private double xVelocity;
+    private double yVelocity;
     private int size;
+    private double decay;
     private int friction;
     private int xmaxSpeed;
     private int ymaxSpeed;
@@ -18,9 +18,9 @@ public class Ball {
         this.y = y;
         xVelocity = 0;
         yVelocity = 0;
-        scale = 1;
         size = 16;
-        friction = 2;
+        decay = 0.9f;
+        friction = 1;
         xmaxSpeed = 64;
         ymaxSpeed = 36;
         shots = 0;
@@ -43,7 +43,7 @@ public class Ball {
         this.y = y;
     }
 
-    public int getXVelocity() {
+    public double getXVelocity() {
         return this.xVelocity;
     }
 
@@ -51,20 +51,12 @@ public class Ball {
         this.xVelocity = xVelocity;
     }
 
-    public int getYVelocity() {
+    public double getYVelocity() {
         return this.yVelocity;
     }
 
     public void setYVelocity(int yVelocity) {
         this.yVelocity = yVelocity;
-    }
-
-    public float getScale() {
-        return this.scale;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
     }
 
     public int getSize() {
@@ -104,9 +96,9 @@ public class Ball {
         this.y = y;
         xVelocity = 0;
         yVelocity = 0;
-        scale = 1;
         size = 16;
-        friction = 2;
+        decay = 0.9f;
+        friction = 1;
         xmaxSpeed = 64;
         ymaxSpeed = 36;
         shots = 0;
@@ -126,23 +118,19 @@ public class Ball {
         x += xVelocity;
         y += yVelocity;
 
-        if (xVelocity > 0)
-            xVelocity -= friction;
-        if (xVelocity < 0)
-            xVelocity += friction;
-        if (yVelocity > 0)
-            yVelocity -= friction;
-        if (yVelocity < 0)
-            yVelocity += friction;
-        if (xVelocity >= -3 && xVelocity <= 3)
+        if (xVelocity != 0)
+            xVelocity *= decay*friction;
+        if (yVelocity != 0)
+            yVelocity *= decay*friction;
+        if (xVelocity >= -1 && xVelocity <= 1)
             xVelocity = 0;
-        if (yVelocity >= -3 && yVelocity <= 3)
+        if (yVelocity >= -1 && yVelocity <= 1)
             yVelocity = 0;
     }
 
     public void walls(int screenWidth, int screenHeight) {
-        if (x >= screenWidth) {
-            x = screenWidth;
+        if (x >= screenWidth - size) {
+            x = screenWidth - size;
             xVelocity *= -1;
         } else if (x <= 0) {
             x = size;
