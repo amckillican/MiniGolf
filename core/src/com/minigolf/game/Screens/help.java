@@ -26,6 +26,9 @@ public class help implements Screen {
         Minigolf.batch.draw(Minigolf.darkLongImg, 426, 339);
         Minigolf.batch.draw(Minigolf.lightLongImg, 681, 0);
         Minigolf.batch.draw(Minigolf.darkLongImg, 936, 339);
+        Minigolf.font.draw(Minigolf.batch, "Click and drag to shoot\nthe ball in the direction\n      you want to go", 70, 550);
+        Minigolf.font.draw(Minigolf.batch, "Avoid obstacles\n  in your path", 375, 200);
+        Minigolf.font.draw(Minigolf.batch, "Try to get the ball in\n  the hole in as few\n strokes as possible", 1050, 600);
         Minigolf.batch.end();
 
         Gameplay.gameplay();
