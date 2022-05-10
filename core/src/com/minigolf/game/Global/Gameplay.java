@@ -59,8 +59,7 @@ public class Gameplay {
         Minigolf.font.getData().setScale(1);
         Minigolf.font.draw(Minigolf.batch, shotStr, 10, 750);
 
-        // drawing ball and hole
-        Minigolf.batch.draw(Minigolf.holeImg, 1100, 375);
+        // drawing ball
         Minigolf.batch.draw(Minigolf.ballImg, ballPosX, ballPosY);
 
         // where to render power meter
