@@ -45,7 +45,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static int mouseDownY = 0;
 	public static int mouseUpX = 0;
 	public static int mouseUpY = 0;
-	public static String gamestate = "title";
+	public static String gamestate = "spash";
 	public String gameScreen = "tutorial";
 	public static float currentFrame = 0;
 	public static float startFrame = 0;
@@ -102,6 +102,18 @@ public class Minigolf extends Game implements InputProcessor {
 
 	@Override
 	public void render() {
+
+		if(gamestate == "spash"){
+
+			if (Gdx.input.isKeyPressed(Keys.B) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+				Minigolf.gamestate = "title";
+				Minigolf.startFrame = Minigolf.currentFrame;
+			}
+			if (Gdx.input.isKeyPressed(Keys.ESCAPE) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+				System.out.println("Close");
+				Gdx.app.exit();
+			}
+		}		
 		// clear the previous frame
 		ScreenUtils.clear(0, 0, 0, 1);
 

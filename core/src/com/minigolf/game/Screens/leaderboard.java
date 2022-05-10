@@ -5,6 +5,7 @@ import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
@@ -16,8 +17,6 @@ public class leaderboard implements Screen {
 
     public leaderboard (Minigolf game) {
         this.leaderboard = game;
-    
-        
     }
     public void render(float delta) {
     
@@ -69,35 +68,44 @@ public class leaderboard implements Screen {
 		Minigolf.font.getData().setScale(2);
 		Minigolf.font.draw(Minigolf.batch, "EXIT", 1090 , 120);
         Minigolf.batch.end();
+
+        if (Gdx.input.isKeyPressed(Keys.ESCAPE) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+            System.out.println("Close");
+            Gdx.app.exit();
+        }
+        if (Gdx.input.isKeyPressed(Keys.B) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+            Minigolf.gamestate = "title";
+			Minigolf.startFrame = Minigolf.currentFrame;
+        }
     }
     @Override
     public void show() {
-        // TODO Auto-generated method stub
+   
         
     }
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
+       
         
     }
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
+      
         
     }
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
+       
         
     }
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
+      
         
     }
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
+     
         
     }
 }
