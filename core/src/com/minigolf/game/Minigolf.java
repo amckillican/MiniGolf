@@ -4,6 +4,7 @@ import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Screens.credits;
 import com.Minigolf.game.Screens.help;
 import com.Minigolf.game.Screens.leaderboard;
+import com.Minigolf.game.Screens.splash;
 import com.Minigolf.game.Screens.Endless;
 import com.Minigolf.game.Screens.Level1_30;
 import com.badlogic.gdx.Game;
@@ -52,7 +53,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static int mouseDownY = 0;
 	public static int mouseUpX = 0;
 	public static int mouseUpY = 0;
-	public static String gamestate = "spash";
+	public static String gamestate = "splash";
 	public String gameScreen = "tutorial";
 	public static float currentFrame = 0;
 	public static float startFrame = 0;
@@ -110,30 +111,37 @@ public class Minigolf extends Game implements InputProcessor {
 		System.out.println("Dispose");
 		batch.dispose();
 		bg.dispose();
+		lightTileIMG.dispose();
+		darkTileIMG.dispose();
+		powerMeterBG.dispose();
+		powerMeterFG.dispose();
+		powerMeterOverlay.dispose();
+		ballImg.dispose();
+		holeImg.dispose();
+		pointImg.dispose();
+		darkLongImg.dispose();
+		lightLongImg.dispose();
+		helpbgImg.dispose();
+		level1BGImg.dispose();
+		crashImg.dispose();
+		level1HoleImg.dispose();
+		stockLineImg.dispose();
 		font.dispose();
 		shapeRenderer.dispose();
 	}
 
 	@Override
 	public void render() {
-
-		if(gamestate == "spash"){
-
-			if (Gdx.input.isKeyPressed(Keys.B) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
-				Minigolf.gamestate = "title";
-				Minigolf.startFrame = Minigolf.currentFrame;
-			}
-			if (Gdx.input.isKeyPressed(Keys.ESCAPE) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
-				System.out.println("Close");
-				Gdx.app.exit();
-			}
-		}		
 		// clear the previous frame
 		ScreenUtils.clear(0, 0, 0, 1);
-
+		
 		// keep track of the game time in seconds
 		currentFrame += Gdx.graphics.getDeltaTime();
-
+		
+		if (gamestate == "splash") {
+			this.setScreen(new splash(this));
+		}
+		
 		if (gamestate == "title") {
 			// scrolling the background infinitely
 			bgPos1 += 1;
@@ -277,7 +285,6 @@ public class Minigolf extends Game implements InputProcessor {
 
 			// exiting the application
 			if (Gdx.input.isKeyPressed(Keys.ESCAPE) && Minigolf.currentFrame - Minigolf.startFrame >= .5) {
-				System.out.println("Close");
 				Gdx.app.exit();
 			}
 		}
