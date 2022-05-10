@@ -16,7 +16,8 @@ public class splash implements Screen {
     }
 
     public void render(float delta) {
-
+        /*
+        */
         Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Minigolf.shapeRenderer.setColor(1, 1, 1, 1);
         Minigolf.shapeRenderer.rect(1000, 50, 281, 100);
