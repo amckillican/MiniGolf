@@ -1,5 +1,7 @@
 package com.Minigolf.game.Screens;
 
+import java.security.Key;
+
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -26,7 +28,7 @@ public class splash implements Screen {
         Minigolf.font.draw(Minigolf.batch, "EXIT", 1090, 120);
         Minigolf.batch.end();
 
-        if (Gdx.input.isKeyPressed(Keys.B)) {
+        if (Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
             Minigolf.startFrame = Minigolf.currentFrame;
             Minigolf.gamestate = "title";
         }
