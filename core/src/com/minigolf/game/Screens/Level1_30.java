@@ -7,13 +7,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class help implements Screen {
+public class Level1_30 implements Screen {
     public Minigolf game;
 
     public static int messageX;
 
     // create screen
-    public help(Minigolf game) {
+    public Level1_30(Minigolf game) {
         this.game = game;
     }
 
@@ -22,13 +22,10 @@ public class help implements Screen {
         // method for physics, ui, and other things that will be used in other screens
         // set the camera to the tmx map
         Minigolf.batch.begin();
-        Minigolf.batch.draw(Minigolf.helpbgImg, 0, 0);
-        Minigolf.batch.draw(Minigolf.darkLongImg, 426, 339);
-        Minigolf.batch.draw(Minigolf.lightLongImg, 681, 0);
-        Minigolf.batch.draw(Minigolf.darkLongImg, 936, 339);
-        Minigolf.font.draw(Minigolf.batch, "Click and drag to shoot\nthe ball in the direction\n      you want to go", 70, 550);
-        Minigolf.font.draw(Minigolf.batch, "Avoid obstacles\n  in your path", 375, 200);
-        Minigolf.font.draw(Minigolf.batch, "Try to get the ball in\n  the hole in as few\n strokes as possible", 1050, 600);
+        Minigolf.batch.draw(Minigolf.level1BGImg, 0, 0);
+        Minigolf.batch.draw(Minigolf.stockLineImg, 0, 40);
+        Minigolf.batch.draw(Minigolf.crashImg, 525, 150);
+        Minigolf.batch.draw(Minigolf.level1HoleImg, 1100, 375);
         Minigolf.batch.end();
 
         Gameplay.gameplay();
@@ -67,11 +64,6 @@ public class help implements Screen {
     }
 
     @Override
-    public void dispose() {
-
-    }
-
-    @Override
     public void resize(int width, int height) {
 
     }
@@ -88,6 +80,11 @@ public class help implements Screen {
 
     @Override
     public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
 
     }
 

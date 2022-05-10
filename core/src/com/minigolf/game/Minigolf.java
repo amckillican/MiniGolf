@@ -4,8 +4,8 @@ import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Screens.credits;
 import com.Minigolf.game.Screens.help;
 import com.Minigolf.game.Screens.leaderboard;
-
 import com.Minigolf.game.Screens.Endless;
+import com.Minigolf.game.Screens.Level1_30;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -38,7 +38,14 @@ public class Minigolf extends Game implements InputProcessor {
 	public static Texture ballImg;
 	public static Texture holeImg;
 	public static Texture pointImg;
-    public static TextureRegion pointImgRegion;
+	public static Texture helpbgImg;
+	public static Texture darkLongImg;
+	public static Texture lightLongImg;
+	public static Texture level1BGImg;
+	public static Texture crashImg;
+	public static Texture level1HoleImg;
+	public static Texture stockLineImg;
+	public static TextureRegion pointImgRegion;
 
 	// variables
 	public static int mouseDownX = 0;
@@ -81,12 +88,19 @@ public class Minigolf extends Game implements InputProcessor {
 		bg = new Texture("gfx/bg.png");
 		lightTileIMG = new Texture("gfx/lighttile.png");
 		darkTileIMG = new Texture("gfx/darktile.png");
-		powerMeterBG = new Texture("gfx/powermeter_bg.png");
-		powerMeterFG = new Texture("gfx/powermeter_fg.png");
-		powerMeterOverlay = new Texture("gfx/powermeter_overlay.png");
-		ballImg = new Texture("gfx/ball.png");
-		holeImg = new Texture("gfx/hole.png");
-		pointImg = new Texture("gfx/point.png");
+		powerMeterBG = new Texture("gfx/general/powermeter_bg.png");
+		powerMeterFG = new Texture("gfx/general/powermeter_fg.png");
+		powerMeterOverlay = new Texture("gfx/general/powermeter_overlay.png");
+		ballImg = new Texture("gfx/general/ball.png");
+		holeImg = new Texture("gfx/general/hole.png");
+		pointImg = new Texture("gfx/general/point.png");
+		darkLongImg = new Texture("gfx/help/darklong.png");
+		lightLongImg = new Texture("gfx/help/lightlong.png");
+		helpbgImg = new Texture("gfx/help/helpbg.png");
+		level1BGImg = new Texture("gfx/Level1-30s/background.png");
+		crashImg = new Texture("gfx/Level1-30s/crash.png");
+		level1HoleImg = new Texture("gfx/Level1-30s/hole.png");
+		stockLineImg = new Texture("gfx/Level1-30s/line.png");
 		pointImgRegion = new TextureRegion(pointImg, 16, 64);
 	}
 
@@ -151,25 +165,34 @@ public class Minigolf extends Game implements InputProcessor {
 			shapeRenderer.rect(1000, 62, 281, 100);
 			shapeRenderer.rect(1000, 252, 281, 100);
 			shapeRenderer.end();
-			
+
 			// transparancy
 			Gdx.gl.glDisable(GL30.GL_BLEND);
-			
+
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-			
+
 			// hovering 9-hole button
 			if (Gdx.input.getX() >= 100 && Gdx.input.getX() <= 385) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 					shapeRenderer.rect(100, 252, 281, 100);
+
+					if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
+						if (Gdx.input.isTouched()) {
+							gamestate = "9hole";
+							startFrame = currentFrame;
+							ball.setBall(205, 375);
+							this.setScreen(new Level1_30(this));
+						}
+					}
 				}
 			}
-		
+
 			// hovering help button
 			if (Gdx.input.getX() >= 100 && Gdx.input.getX() <= 385) {
 				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
 					shapeRenderer.rect(101, 62, 281, 100);
 
-					if (Minigolf.currentFrame - Minigolf.startFrame >= .5){
+					if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
 						if (Gdx.input.isTouched()) {
 							gamestate = "help";
 							startFrame = currentFrame;
@@ -186,12 +209,12 @@ public class Minigolf extends Game implements InputProcessor {
 
 					shapeRenderer.rect(549, 252, 281, 100);
 
-					if (Minigolf.currentFrame - Minigolf.startFrame >= .5){
+					if (Minigolf.currentFrame - Minigolf.startFrame >= .5) {
 						if (Gdx.input.isTouched()) {
-						gamestate = "Endless";
-						startFrame = currentFrame;
-						ball.setBall(205, 375);
-						this.setScreen(new Endless(this));
+							gamestate = "Endless";
+							startFrame = currentFrame;
+							ball.setBall(205, 375);
+							this.setScreen(new Endless(this));
 						}
 					}
 
@@ -208,7 +231,7 @@ public class Minigolf extends Game implements InputProcessor {
 				}
 			}
 
-			//hovering leaderboard button
+			// hovering leaderboard button
 			if (Gdx.input.getX() >= 1000 && Gdx.input.getX() <= 1285) {
 				if (Gdx.input.getY() >= 413 && Gdx.input.getY() <= 513) {
 					shapeRenderer.rect(1000, 252, 281, 100);
@@ -220,7 +243,7 @@ public class Minigolf extends Game implements InputProcessor {
 				}
 			}
 
-			//hovering acknowledgement and music list button
+			// hovering acknowledgement and music list button
 			if (Gdx.input.getX() >= 1000 && Gdx.input.getX() <= 1285) {
 				if (Gdx.input.getY() >= 603 && Gdx.input.getY() <= 703) {
 					shapeRenderer.rect(1000, 62, 281, 100);
@@ -231,7 +254,6 @@ public class Minigolf extends Game implements InputProcessor {
 					}
 				}
 			}
-			
 
 			shapeRenderer.end();
 
@@ -244,13 +266,13 @@ public class Minigolf extends Game implements InputProcessor {
 			font.draw(batch, "ENDLESS", 593, 327);
 			font.draw(batch, "EXIT", 642, 133);
 			font.getData().setScale(1);
-			font.draw(batch, "LEADERBOARD",1061,317);
-			font.draw(batch, "CREDITS+MUSIC LIST",1020,123);
+			font.draw(batch, "LEADERBOARD", 1061, 317);
+			font.draw(batch, "CREDITS+MUSIC LIST", 1020, 123);
 			font.getData().setScale(1);
 			font.setColor(0, 0, 0, 1);
 			font.draw(batch, "Created By: Adam Fischer, Ben Smith, Alex McKillican, Clinton Osawe", 5, 30);
 			font.getData().setScale(4);
-			font.draw(batch, "Putting Through Time", 150, 550);
+			font.draw(batch, "Puttin' Through Time", 170, 550);
 			batch.end();
 
 			// exiting the application
