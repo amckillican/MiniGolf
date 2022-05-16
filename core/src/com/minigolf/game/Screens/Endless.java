@@ -1,12 +1,15 @@
 package com.Minigolf.game.Screens;
 
 import com.Minigolf.game.Minigolf;
+import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Global.Gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+
 import java.util.*;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -31,6 +34,8 @@ public class Endless implements Screen {
     public static int sand = 0;
     public static int sandx = 0;
     public static int sandy = 0;
+    public Rectangle obstacle;
+    public Rectangle player;
 
     // create screen
     public Endless(Minigolf game) {
@@ -41,7 +46,7 @@ public class Endless implements Screen {
     public void render(float delta) {
         // Set backround
         Minigolf.batch.begin();
-        Minigolf.batch.draw(BenFace, 0, 0);
+        Minigolf.batch.draw(darkTileIMG, 0, 0);
         Minigolf.batch.end();
 
         // method for physics, ui, and other things that will be used in other screens
@@ -124,6 +129,14 @@ public class Endless implements Screen {
         Minigolf.font.getData().setScale(1);
         Minigolf.font.draw(Minigolf.batch, "Level: " + level, 10, 720);
         Minigolf.batch.end();
+        //for(int i = 0; i < nums.size(); i+=2){
+        //    if(Ball.ball.getx() == nums.get(i) )
+        //}
+
+        //boolean isOverlaping = player.overlaps(obstacle);
+        //if(isOverlaping) {
+            
+        //}
     }
 
     @Override
