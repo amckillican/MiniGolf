@@ -18,15 +18,12 @@ public class splash implements Screen {
     public void render(float delta) {
         /*
         */
-        Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Minigolf.shapeRenderer.setColor(1, 1, 1, 1);
-        Minigolf.shapeRenderer.rect(1000, 50, 281, 100);
-        Minigolf.shapeRenderer.end();
+    
 
         Minigolf.batch.begin();
         Minigolf.font.setColor(1, 1, 1, 1);
         Minigolf.font.getData().setScale(2);
-        Minigolf.font.draw(Minigolf.batch, "EXIT", 1090, 120);
+        Minigolf.font.draw(Minigolf.batch, "press any key to start ", 400, 400);
         Minigolf.batch.end();
 
         if (Gdx.input.isKeyPressed(Keys.ANY_KEY)) {
