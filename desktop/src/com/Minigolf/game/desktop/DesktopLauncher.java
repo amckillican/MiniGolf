@@ -1,4 +1,4 @@
-package com.minigolf.game.desktop;
+package com.Minigolf.game.desktop;
 
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
