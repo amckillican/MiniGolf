@@ -47,6 +47,7 @@ public class Minigolf extends Game implements InputProcessor {
 	public static Texture level1HoleImg;
 	public static Texture stockLineImg;
 	public static TextureRegion pointImgRegion;
+	public static Texture splashbackground;
 
 	// variables
 	public static int mouseDownX = 0;
@@ -87,6 +88,7 @@ public class Minigolf extends Game implements InputProcessor {
 		// textures
 		batch = new SpriteBatch();
 		bg = new Texture("gfx/bg.png");
+		splashbackground = new Texture("gfx/splashbackground.png");
 		lightTileIMG = new Texture("gfx/lighttile.png");
 		darkTileIMG = new Texture("gfx/darktile.png");
 		powerMeterBG = new Texture("gfx/general/powermeter_bg.png");
@@ -128,6 +130,7 @@ public class Minigolf extends Game implements InputProcessor {
 		stockLineImg.dispose();
 		font.dispose();
 		shapeRenderer.dispose();
+		splashbackground.dispose();
 	}
 
 	@Override
@@ -156,7 +159,7 @@ public class Minigolf extends Game implements InputProcessor {
 			// drawing the sprites
 			batch.begin();
 			batch.draw(bg, bgPos1, 0);
-			batch.draw(bg, bgPos2, 0);
+			batch.draw(bg, bgPos2, 0	);
 			batch.end();
 
 			// transparancy
