@@ -134,16 +134,16 @@ public class Gameplay {
 
         Minigolf.batch.end();
     }
-    public Body createPlayer(int x, int y){
+    public static Body createPlayer(int x, int y){
 		Body pBody;
 		BodyDef def = new BodyDef();
 		def.type = BodyDef.BodyType.DynamicBody;
-		def.position.set(x, y);
+		def.position.set(x+8, y+8);
 		def.fixedRotation = true;
 		pBody = world.createBody(def);
 		CircleShape shape = new CircleShape();
 		shape.setRadius(8);
-		pBody.createFixture(shape, 1.0f).setUserData(this);
+		pBody.createFixture(shape, 1.0f);//.setUserData(this);
 		shape.dispose();
 		return pBody;
 	}
