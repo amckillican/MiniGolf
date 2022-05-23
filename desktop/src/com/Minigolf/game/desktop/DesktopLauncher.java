@@ -1,18 +1,17 @@
 package com.Minigolf.game.desktop;
 
 import com.Minigolf.game.Minigolf;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Minigolf(), config);
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+	
 		
 		// config settings
-		config.width = 1360;
-		config.height = 765;
-		config.resizable = false;
-		config.title = "MiniGolf";
+		config.setWindowedMode(1360, 765);
+		config.setTitle("MiniGolf");
+		new Lwjgl3Application(new Minigolf(), config);
 	}
 }
