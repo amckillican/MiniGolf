@@ -19,6 +19,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Minigolf extends Game implements InputProcessor {
@@ -59,6 +66,9 @@ public class Minigolf extends Game implements InputProcessor {
 	public static float startFrame = 0;
 	public static boolean shoot = false;
 	public static boolean dragging = false;
+	public static World world;
+	public Body player;
+	public Box2DDebugRenderer b2dr;
 
 	int bgPos1 = -1360;
 	int bgPos2 = 0;
@@ -68,6 +78,10 @@ public class Minigolf extends Game implements InputProcessor {
 		// set the camera to the window resolution
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
+
+		world = new World(new Vector2(0, 0), false);
+		b2dr = new Box2DDebugRenderer();
+		player = createPlayer();
 
 		// initiating the camera
 		camera = new OrthographicCamera();
@@ -128,6 +142,8 @@ public class Minigolf extends Game implements InputProcessor {
 		stockLineImg.dispose();
 		font.dispose();
 		shapeRenderer.dispose();
+		b2dr.dispose();
+		world.dispose();
 	}
 
 	@Override
@@ -344,5 +360,22 @@ public class Minigolf extends Game implements InputProcessor {
 	@Override
 	public boolean scrolled(float amountX, float amountY) {
 		return false;
+	}
+	public static Body createPlayer(){
+		Body pBody;
+		BodyDef def = new BodyDef();
+		def.type = BodyDef.BodyType.DynamicBody;
+		def.position.set(Minigolf.ball.getX(), Minigolf.ball.getY());
+		def.fixedRotation = true;
+		pBody = world.createBody(def);
+		CircleShape shape = new CircleShape();
+		shape.setRadius(8);
+		pBody.createFixture(shape, 1.0f);
+		shape.dispose();
+		return pBody;
+	}
+	public void update(float delta){
+		world.step(1 / 60f, 6, 2);
+
 	}
 }
