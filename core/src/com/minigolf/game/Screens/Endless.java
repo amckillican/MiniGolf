@@ -9,6 +9,9 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Body;
 
 import java.util.*;
 
@@ -22,7 +25,7 @@ public class Endless implements Screen {
     public static boolean start = true;
     public static ShapeRenderer shapeRenderer;
     public static Batch batch;
-    ArrayList<Integer> nums = new ArrayList<>();
+    public static ArrayList<Integer> nums = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
     Texture sand1 = new Texture("gfx/Sand1.png");
     Texture sand2 = new Texture("gfx/Sand2.png");
@@ -34,8 +37,6 @@ public class Endless implements Screen {
     public static int sand = 0;
     public static int sandx = 0;
     public static int sandy = 0;
-    public Rectangle obstacle;
-    public Rectangle player;
 
     // create screen
     public Endless(Minigolf game) {
@@ -108,6 +109,7 @@ public class Endless implements Screen {
             // Attempts to place block obstacle
             try {
                 Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
+                Body platform = createPlatform(nums.get(i), nums.get(i + 1));
                 // If there is no index in the array game doesn't crash
             } catch (Exception e) {}
         }
@@ -172,5 +174,18 @@ public class Endless implements Screen {
     @Override
     public void show() {
 
+    }
+    public Body createPlatform(int x,int y){
+        Body oBody;
+        BodyDef def = new BodyDef();
+		def.type = BodyDef.BodyType.DynamicBody;
+        def.position.set(x, y);
+        def.fixedRotation = true;
+        oBody = Gameplay.world.createBody(def);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(8,8);
+        oBody.createFixture(shape, 1.0f).setUserData(this);
+        shape.dispose();
+        return oBody;
     }
 }
