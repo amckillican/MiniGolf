@@ -61,7 +61,7 @@ public class Endless implements Screen {
 
         // Add sand pit co-ordinates
         if (start) {
-            sandx = rand.nextInt(400);
+            sandx = rand.nextInt(150) + 300;
             sandy = rand.nextInt(766);
             sand = rand.nextInt(3) + 1;
             start = false;
