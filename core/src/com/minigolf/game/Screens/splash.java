@@ -1,13 +1,12 @@
 package com.Minigolf.game.Screens;
 
-import java.security.Key;
-
 import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 
 public class splash implements Screen {
     public Minigolf spash;

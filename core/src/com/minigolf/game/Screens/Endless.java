@@ -27,7 +27,7 @@ public class Endless implements Screen {
     Texture sand1 = new Texture("gfx/Sand1.png");
     Texture sand2 = new Texture("gfx/Sand2.png");
     Texture sand3 = new Texture("gfx/Sand3.png");
-    Texture BenFace = new Texture("gfx/backround.jpg");
+    Texture BenFace = new Texture("gfx/bg.png");
     Random rand = new Random();
     public static int track = 0;
     public static BitmapFont font;
@@ -46,7 +46,7 @@ public class Endless implements Screen {
     public void render(float delta) {
         // Set backround
         Minigolf.batch.begin();
-        Minigolf.batch.draw(darkTileIMG, 0, 0);
+        Minigolf.batch.draw(BenFace, 0, 0);
         Minigolf.batch.end();
 
         // method for physics, ui, and other things that will be used in other screens
@@ -66,7 +66,7 @@ public class Endless implements Screen {
             start = false;
         }
 
-        // Randomly choses a sandpit sprite and places it
+        // Randomly choses a sandpit sprite
         if (sand == 1) {
             Minigolf.batch.draw(sand1, sandx, sandy);
         }
@@ -85,8 +85,13 @@ public class Endless implements Screen {
             // Check if level is completable
             // distance between blocks is larger than ball size
             for (int j = 0; j < nums.size(); j += 2) {
-                if (x - nums.get(j) > -30 && x - nums.get(j) < 30) {
-                    if (y - nums.get(j + 1) > -30 && y - nums.get(j + 1) < 30) {
+                if (x - nums.get(j) > -35 && x - nums.get(j) < 35) {
+                    if (y - nums.get(j + 1) > -35 && y - nums.get(j + 1) < 35) {
+                                track++;
+                    }
+                }
+                if(x - 205 > -15 && x - 205 < 15){
+                    if(y - 375  > -15 && y - 375 < 15){
                         track++;
                     }
                 }
