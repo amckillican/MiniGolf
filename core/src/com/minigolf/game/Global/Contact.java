@@ -3,7 +3,6 @@ package com.Minigolf.game.Global;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.Minigolf.game.Screens.Endless;
 
 public class Contact implements ContactListener{
 

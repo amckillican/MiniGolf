@@ -1,14 +1,12 @@
 package com.Minigolf.game.Screens;
 
 import com.Minigolf.game.Minigolf;
-import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Global.Gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Body;
