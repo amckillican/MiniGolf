@@ -1,17 +1,17 @@
 package com.Minigolf.game;
 
 import com.Minigolf.game.Global.Ball;
+import com.Minigolf.game.Screens.Endless;
+import com.Minigolf.game.Screens.Level1_30;
 import com.Minigolf.game.Screens.credits;
 import com.Minigolf.game.Screens.help;
 import com.Minigolf.game.Screens.leaderboard;
 import com.Minigolf.game.Screens.splash;
-import com.Minigolf.game.Screens.Endless;
-import com.Minigolf.game.Screens.Level1_30;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +19,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -144,12 +143,8 @@ public class Minigolf extends Game implements InputProcessor {
 		stockLineImg.dispose();
 		font.dispose();
 		shapeRenderer.dispose();
-<<<<<<< HEAD
-		splashbackground.dispose();
-=======
 		b2dr.dispose();
 		world.dispose();
->>>>>>> a5ebca9c16f16c224c47205f07631dbf467e5cb2
 	}
 
 	@Override
