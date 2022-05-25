@@ -151,7 +151,7 @@ public class Gameplay {
 		world.step(1 / 60f, 6, 2);
 
 	}
-    public static Body createPlatform(int x,int y){
+    public Body createPlatform(int x,int y){
         Body oBody;
         BodyDef def = new BodyDef();
 		def.type = BodyDef.BodyType.DynamicBody;
@@ -160,7 +160,7 @@ public class Gameplay {
         oBody = world.createBody(def);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(8,8);
-        oBody.createFixture(shape, 1.0f);
+        oBody.createFixture(shape, 1.0f).setUserData(this);
         shape.dispose();
         return oBody;
     }

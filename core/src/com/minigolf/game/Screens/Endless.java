@@ -26,6 +26,7 @@ public class Endless implements Screen {
     public static ShapeRenderer shapeRenderer;
     public static Batch batch;
     public static ArrayList<Integer> nums = new ArrayList<>();
+    public static ArrayList<Body> tiles = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
     Texture sand1 = new Texture("gfx/Sand1.png");
     Texture sand2 = new Texture("gfx/Sand2.png");
@@ -109,7 +110,7 @@ public class Endless implements Screen {
             // Attempts to place block obstacle
             try {
                 Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
-                Body platform = createPlatform(nums.get(i), nums.get(i + 1));
+                tiles.add(createPlatform(nums.get(i), nums.get(i + 1)));
                 // If there is no index in the array game doesn't crash
             } catch (Exception e) {}
         }
