@@ -101,7 +101,6 @@ public class Minigolf extends Game implements InputProcessor {
 		// textures
 		batch = new SpriteBatch();
 		bg = new Texture("gfx/bg.png");
-		splashbackground = new Texture("gfx/splashbackground.png");
 		lightTileIMG = new Texture("gfx/lighttile.png");
 		darkTileIMG = new Texture("gfx/darktile.png");
 		powerMeterBG = new Texture("gfx/general/powermeter_bg.png");
@@ -126,6 +125,7 @@ public class Minigolf extends Game implements InputProcessor {
 		System.out.println("Dispose");
 		batch.dispose();
 		bg.dispose();
+		splashbackground.dispose();
 		lightTileIMG.dispose();
 		darkTileIMG.dispose();
 		powerMeterBG.dispose();

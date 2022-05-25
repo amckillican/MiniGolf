@@ -32,9 +32,12 @@ public class Gameplay {
     public static void gameplay() {
 
         world = new World(new Vector2(0, 0), false);
+        //world.setContactListener(new MyContactListener);
 		b2dr = new Box2DDebugRenderer();
 		player = createPlayer(Minigolf.ball.getX(), Minigolf.ball.getY());
         b2dr.render(world, Minigolf.camera.combined);
+
+
         // ball physics
         Minigolf.ball.updatePos();
         Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -150,7 +153,7 @@ public class Gameplay {
 		world.step(1 / 60f, 6, 2);
 
 	}
-    public static Body createPlatform(int x,int y){
+    public Body createPlatform(int x,int y){
         Body oBody;
         BodyDef def = new BodyDef();
 		def.type = BodyDef.BodyType.DynamicBody;
@@ -159,7 +162,7 @@ public class Gameplay {
         oBody = world.createBody(def);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(8,8);
-        oBody.createFixture(shape, 1.0f);
+        oBody.createFixture(shape, 1.0f).setUserData(this);
         shape.dispose();
         return oBody;
     }

@@ -4,7 +4,7 @@ import com.Minigolf.game.Minigolf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
@@ -19,9 +19,11 @@ public class splash implements Screen {
     public void render(float delta) {
         /*
         */
+        Texture splashbackground = new Texture("gfx/splashbackground - Copy.png");
         Minigolf.batch.begin();
-		Minigolf.batch.draw(Minigolf.splashbackground, 0, 0);
+		Minigolf.batch.draw(splashbackground, 0, 0);
 		Minigolf.batch.end();
+        
 
         Minigolf.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		Minigolf.shapeRenderer.setColor(0, 0, 0, (float) 0.75);
