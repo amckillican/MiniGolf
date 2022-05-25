@@ -1,15 +1,14 @@
 package com.Minigolf.game.Screens;
 
 import com.Minigolf.game.Minigolf;
-import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Global.Gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -179,12 +178,17 @@ public class Endless implements Screen {
     public Body createPlatform(int x,int y){
         Body oBody;
         BodyDef def = new BodyDef();
-		def.type = BodyDef.BodyType.DynamicBody;
+		def.type = BodyDef.BodyType.StaticBody;
         def.position.set(x, y);
         def.fixedRotation = true;
         oBody = Gameplay.world.createBody(def);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(8,8);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 1.0f;
+        this.obstacle = Gameplay.world.createBody(oBody);
         oBody.createFixture(shape, 1.0f).setUserData(this);
         shape.dispose();
         return oBody;

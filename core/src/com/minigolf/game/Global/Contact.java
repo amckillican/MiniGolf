@@ -4,8 +4,11 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+<<<<<<< HEAD
 import com.Minigolf.game.Screens.Endless;
 import com.Minigolf.game.Global.Gameplay;
+=======
+>>>>>>> 244e0f4e51290da1d55c213778e68b9e998804dc
 
 public class Contact implements ContactListener{
 

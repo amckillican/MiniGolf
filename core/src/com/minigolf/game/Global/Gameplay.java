@@ -1,7 +1,6 @@
 package com.Minigolf.game.Global;
 
 import com.Minigolf.game.Minigolf;
-import com.Minigolf.game.Screens.Endless;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
