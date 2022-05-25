@@ -32,9 +32,12 @@ public class Gameplay {
     public static void gameplay() {
 
         world = new World(new Vector2(0, 0), false);
+        //world.setContactListener(new MyContactListener);
 		b2dr = new Box2DDebugRenderer();
 		player = createPlayer(Minigolf.ball.getX(), Minigolf.ball.getY());
         b2dr.render(world, Minigolf.camera.combined);
+
+
         // ball physics
         Minigolf.ball.updatePos();
         Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
