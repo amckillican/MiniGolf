@@ -1,8 +1,16 @@
 package com.Minigolf.game.Global;
 
 import com.Minigolf.game.Minigolf;
+import com.Minigolf.game.Screens.Endless;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Gameplay {
     public static TextureRegion region;
@@ -18,8 +26,16 @@ public class Gameplay {
     public static int sideB;
     public static float pointAngle = 0;
     public static String shotStr;
+    public static World world;
+	public static Body player, platform;
+	public static Box2DDebugRenderer b2dr;
 
     public static void gameplay() {
+
+        world = new World(new Vector2(0, 0), false);
+		b2dr = new Box2DDebugRenderer();
+		player = createPlayer(Minigolf.ball.getX(), Minigolf.ball.getY());
+        b2dr.render(world, Minigolf.camera.combined);
         // ball physics
         Minigolf.ball.updatePos();
         Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -117,5 +133,35 @@ public class Gameplay {
         }
 
         Minigolf.batch.end();
+    }
+    public static Body createPlayer(int x, int y){
+		Body pBody;
+		BodyDef def = new BodyDef();
+		def.type = BodyDef.BodyType.DynamicBody;
+		def.position.set(x+8, y+8);
+		def.fixedRotation = true;
+		pBody = world.createBody(def);
+		CircleShape shape = new CircleShape();
+		shape.setRadius(8);
+		pBody.createFixture(shape, 1.0f);//.setUserData(this);
+		shape.dispose();
+		return pBody;
+	}
+	public void update(float delta){
+		world.step(1 / 60f, 6, 2);
+
+	}
+    public static Body createPlatform(int x,int y){
+        Body oBody;
+        BodyDef def = new BodyDef();
+		def.type = BodyDef.BodyType.DynamicBody;
+        def.position.set(x, y);
+        def.fixedRotation = true;
+        oBody = world.createBody(def);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(8,8);
+        oBody.createFixture(shape, 1.0f);
+        shape.dispose();
+        return oBody;
     }
 }
