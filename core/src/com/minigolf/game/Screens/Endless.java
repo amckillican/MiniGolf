@@ -99,6 +99,7 @@ public class Endless implements Screen {
                         track++;
                     }
                 }
+                if(Minigolf.ball.getX() = nums.get(x))
             }
 
             // Add coordinates to array
@@ -113,7 +114,7 @@ public class Endless implements Screen {
             try {
                 Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
                 BodyDef bdef = new BodyDef();
-                bdef.position.set(200, 200);
+                bdef.position.set(nums.get(i), nums.get(i+1));
                 bdef.type = BodyType.DynamicBody;
                 Body body = Gameplay.world.createBody(bdef);
                 PolygonShape shape = new PolygonShape();
