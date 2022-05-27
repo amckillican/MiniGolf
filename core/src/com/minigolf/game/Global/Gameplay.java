@@ -1,7 +1,7 @@
 package com.Minigolf.game.Global;
 
 import com.Minigolf.game.Minigolf;
-import com.Minigolf.game.Screens.Endless;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Gameplay {
+public class Gameplay extends ApplicationAdapter {
     public static TextureRegion region;
 
     public static int powerPosX;
@@ -31,11 +31,13 @@ public class Gameplay {
 	public static Box2DDebugRenderer b2dr;
 
     public static void gameplay() {
-
-        world = new World(new Vector2(0, 0), false);
+        world = new World(new Vector2(0, -9.81f), false);
+        //world.setContactListener(new MyContactListener);
 		b2dr = new Box2DDebugRenderer();
-		player = createPlayer(Minigolf.ball.getX(), Minigolf.ball.getY());
+		player = createPlayer(205, 390-15);
         b2dr.render(world, Minigolf.camera.combined);
+        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+
         // ball physics
         Minigolf.ball.updatePos();
         Minigolf.ball.walls(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -55,6 +57,7 @@ public class Gameplay {
                     && Minigolf.ball.getYVelocity() == 0) {
                 Minigolf.ball.setXVelocity(-(Minigolf.mouseUpX - Minigolf.mouseDownX) / 2);
                 Minigolf.ball.setYVelocity((Minigolf.mouseUpY - Minigolf.mouseDownY) / 2);
+                player.applyForceToCenter(new Vector2((Minigolf.mouseUpX - Minigolf.mouseDownX), ((Minigolf.mouseUpY - Minigolf.mouseDownY)) ), true);
                 Minigolf.ball.addShot();
                 Minigolf.shoot = false;
                 Minigolf.dragging = false;
@@ -142,7 +145,7 @@ public class Gameplay {
 		def.fixedRotation = true;
 		pBody = world.createBody(def);
 		CircleShape shape = new CircleShape();
-		shape.setRadius(8);
+		shape.setRadius(8f);
 		pBody.createFixture(shape, 1.0f);//.setUserData(this);
 		shape.dispose();
 		return pBody;
@@ -151,7 +154,7 @@ public class Gameplay {
 		world.step(1 / 60f, 6, 2);
 
 	}
-    public static Body createPlatform(int x,int y){
+    public Body createPlatform(int x,int y){
         Body oBody;
         BodyDef def = new BodyDef();
 		def.type = BodyDef.BodyType.DynamicBody;
@@ -160,7 +163,7 @@ public class Gameplay {
         oBody = world.createBody(def);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(8,8);
-        oBody.createFixture(shape, 1.0f);
+        oBody.createFixture(shape, 1.0f).setUserData(this);
         shape.dispose();
         return oBody;
     }

@@ -1,16 +1,17 @@
 package com.Minigolf.game.Screens;
 
 import com.Minigolf.game.Minigolf;
-import com.Minigolf.game.Global.Ball;
 import com.Minigolf.game.Global.Gameplay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import java.util.*;
@@ -26,6 +27,7 @@ public class Endless implements Screen {
     public static ShapeRenderer shapeRenderer;
     public static Batch batch;
     public static ArrayList<Integer> nums = new ArrayList<>();
+    public static ArrayList<Body> tiles = new ArrayList<>();
     Texture darkTileIMG = new Texture("gfx/darktile.png");
     Texture sand1 = new Texture("gfx/Sand1.png");
     Texture sand2 = new Texture("gfx/Sand2.png");
@@ -37,6 +39,7 @@ public class Endless implements Screen {
     public static int sand = 0;
     public static int sandx = 0;
     public static int sandy = 0;
+    public Body body;
 
     // create screen
     public Endless(Minigolf game) {
@@ -96,6 +99,7 @@ public class Endless implements Screen {
                         track++;
                     }
                 }
+                
             }
 
             // Add coordinates to array
@@ -109,7 +113,20 @@ public class Endless implements Screen {
             // Attempts to place block obstacle
             try {
                 Minigolf.batch.draw(darkTileIMG, nums.get(i), nums.get(i + 1));
-                Body platform = createPlatform(nums.get(i), nums.get(i + 1));
+                BodyDef bdef = new BodyDef();
+                bdef.position.set(nums.get(i)+8, nums.get(i+1)+8);
+                bdef.type = BodyType.DynamicBody;
+                Body body = Gameplay.world.createBody(bdef);
+                PolygonShape shape = new PolygonShape();
+                shape.setAsBox(8, 8);
+                FixtureDef fdef = new FixtureDef();
+                fdef.shape = shape;
+                body.createFixture(fdef);
+                //Gdx.gl30.glClear(GL30.GL_COLOR_BUFFER_BIT);
+                Gameplay.b2dr.render(Gameplay.world, Minigolf.camera.combined);
+                
+                //body = (createPlatform(nums.get(i), nums.get(i + 1)));
+                //Gameplay.b2dr.render(Gameplay.world, Minigolf.camera.combined);
                 // If there is no index in the array game doesn't crash
             } catch (Exception e) {}
         }
@@ -126,7 +143,7 @@ public class Endless implements Screen {
             level++;
             System.out.println(level);
         }
-        if (Gdx.input.isKeyPressed(Keys.P)) {
+        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
             level = 1;
             System.out.println(level);
         }
@@ -177,15 +194,36 @@ public class Endless implements Screen {
     }
     public Body createPlatform(int x,int y){
         Body oBody;
+		BodyDef def = new BodyDef();
+		def.type = BodyDef.BodyType.DynamicBody;
+		def.position.set(x+8, y+8);
+		def.fixedRotation = true;
+		oBody = Gameplay.world.createBody(def);
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(8, 8);
+		oBody.createFixture(shape, 1.0f);//.setUserData(this);
+		shape.dispose();
+		return oBody;
+        /*Body oBody;
         BodyDef def = new BodyDef();
 		def.type = BodyDef.BodyType.DynamicBody;
         def.position.set(x, y);
         def.fixedRotation = true;
         oBody = Gameplay.world.createBody(def);
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(8,8);
+        shape.setAsBox(20,20);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 1.0f;
+        this.body = Gameplay.world.createBody(def);
+        this.body.createFixture(fixtureDef).setUserData(this);
+
         oBody.createFixture(shape, 1.0f).setUserData(this);
         shape.dispose();
-        return oBody;
+        return oBody;*/
+    }
+    public void hit(){
+        System.out.println("Hit");
     }
 }
