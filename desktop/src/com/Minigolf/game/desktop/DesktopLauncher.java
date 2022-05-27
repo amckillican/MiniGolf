@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		// config settings
 		config.setWindowedMode(1360, 765);
 		config.setTitle("MiniGolf");
-		new Lwjgl3Application(new Minigolf(), config);
+		new Lwjgl3Application(new Minigolf(), Minigolf.config);
 	}
 }
