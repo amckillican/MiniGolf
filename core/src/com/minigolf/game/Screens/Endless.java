@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.*;
 
@@ -99,7 +100,29 @@ public class Endless implements Screen {
                         track++;
                     }
                 }
-                
+                try{
+                    if(Minigolf.ball.getX() == nums.get(i) && Minigolf.ball.getY() == nums.get(i+1)){
+                        int direction = rand.nextInt(3);
+
+                        if(direction == 0){
+                            Minigolf.ball.setXVelocity((int)Minigolf.ball.getXVelocity());
+                            Minigolf.ball.setYVelocity((int)Minigolf.ball.getYVelocity());
+                        }
+                        if(direction == 1){
+                            Minigolf.ball.setXVelocity((int)-Minigolf.ball.getXVelocity());
+                            Minigolf.ball.setYVelocity((int)-Minigolf.ball.getYVelocity());
+                        }
+                        if(direction == 2){
+                            Minigolf.ball.setXVelocity((int)-Minigolf.ball.getXVelocity());
+                            Minigolf.ball.setYVelocity((int)Minigolf.ball.getYVelocity());
+                        }
+                        if(direction == 3){
+                            Minigolf.ball.setXVelocity((int)Minigolf.ball.getXVelocity());
+                            Minigolf.ball.setYVelocity((int)-Minigolf.ball.getYVelocity());
+                        }
+                    }
+                }
+                catch(Exception e){}
             }
 
             // Add coordinates to array
